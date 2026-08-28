@@ -1596,8 +1596,13 @@
                              SigmaEff0Array(ParticleIndex, 1) =  FinalValuesAtMP(Location(1))- Sr*SigWP
                              Location=FINDLOC(IdExistentVariables, 6)
                              SigmaEff0Array(ParticleIndex, 2) =  FinalValuesAtMP(Location(1))- Sr*SigWP
+                             Location=FINDLOC(IdExistentVariables, 7)
+                             if (Location(1)==0) then
+                                 SigmaEff0Array(ParticleIndex, 3) = SigmaEff0Array(ParticleIndex, 1) !if sigmaz is not specified in 2D, then assume sigmaz=sigmax
+                             else
+                                SigmaEff0Array(ParticleIndex, 3) =  FinalValuesAtMP(Location(1))- Sr*SigWP
+                             end if
                              Location=FINDLOC(IdExistentVariables, 8)
-                             SigmaEff0Array(ParticleIndex, 3) =  FinalValuesAtMP(Location(1))
                              SigmaEff0Array(ParticleIndex, 4) =  FinalValuesAtMP(Location(1))
 
                          end if

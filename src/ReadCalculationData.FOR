@@ -2854,12 +2854,13 @@ subroutine ReadPrescribedAccelerationOrVelocityFromFile()
                  Check2 = FINDLOC(UniqueIdMapVar, 2)
                  Check5 = FINDLOC(UniqueIdMapVar, 5)
                  Check6 = FINDLOC(UniqueIdMapVar, 6)
+                 Check7 = FINDLOC(UniqueIdMapVar, 7)
                  Check8 = FINDLOC(UniqueIdMapVar, 8)
                  Check11 = FINDLOC(UniqueIdMapVar, 11)
                  if ((Check1(1) == 0) .or. (Check2(1) == 0) .or. (Check5(1) == 0) .or. (Check6(1) == 0)) then
                      call GiveError('INPUT_FILE_ERROR: The input file is  not properly specified.')
                  end if
-                 if ((Check8(1) == 0) .or. (Check11(1) == 0))then
+                 if ((Check8(1) == 0) .or. (Check11(1) == 0)) then
                      call GiveError('INPUT_FILE_ERROR: The input file is  not properly specified.')
                  end if
              end if
