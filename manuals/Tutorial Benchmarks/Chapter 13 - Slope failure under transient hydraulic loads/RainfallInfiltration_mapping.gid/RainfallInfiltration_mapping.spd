@@ -1,0 +1,1240 @@
+<?xml version="1.0" encoding="utf-8"?><!-- -*- coding: utf-8; mode: SGML -*- -->
+<Anura3D_data version="3.0">
+  <style show_menubutton_about="0" show_menubutton_search="1"/>
+  <!-- units -->
+  <units>
+    <!--by now it is compulsory define this node if units are used (could be empty if defaults are enougth)-->
+  </units>
+  <!-- ############ Container of units ############ -->
+  <container n="General_data" pn="General data" icon="ruler" help="Setup unit system, problem dimensions, and gravity acceleration." tree_state="open">
+    <container n="units" pn="Units" icon="size" help="Common to all models" tree_state="close">
+      <value n="units_mesh" pn="Geometry unit" values="m" v="m" editable="0" tree_state="close"/>
+      <value n="units_force" pn="Force unit" values="kN" v="kN" editable="0" tree_state="close"/>
+      <value n="units_time" pn="Time unit" values="s" v="s" editable="0" tree_state="close"/>
+    </container>
+    <container n="GRAVITY_DATA" pn="Gravity data" icon="gravity.png" tree_state="close">
+      <value n="gravity_acceleration" pn="gravity acceleration [m/s2]" v="9.81" tree_state="close"/>
+      <value n="gravity_vector_x" pn="gravity vector x [-]" v="0.0" tree_state="close"/>
+      <value n="gravity_vector_y" pn="gravity vector y [-]" v="-1.0" tree_state="close"/>
+      <value n="gravity_vector_z" pn="gravity vector z [-]" v="0.0" tree_state="close"/>
+    </container>
+    <value n="NDIM" pn="Problem dimensions" icon="" help="Setup problem dimensions" values="2D:plane-strain,2D:Axissymmetric,3D,3D:Axissymmetric" v="2D:plane-strain" actualize_tree="1" tree_state="close"/>
+    <value n="NLAYERS" pn="MPM discretization type" icon="" help="Select the number of layers for multiphase simulations. Only for MPM solvers." values="Single_point,Double_point" v="Single_point" actualize_tree="1" tree_state="close"/>
+    <container n="POSTPROCESS_VISUALIZATION_SOFTWARE" pn="Post-processing visualization software" icon="post.png" tree_state="close">
+      <value n="Paraview" pn="ParaView" v="1" values="1,0" state="normal" actualize_tree="1" tree_state="close"/>
+      <value n="GiD_ASCII" pn="GiD (ASCII format)" v="0" values="1,0" state="normal" actualize_tree="1" tree_state="close"/>
+      <value n="GiD_Binary" pn="GiD (Binary format)" v="0" values="1,0" state="normal" actualize_tree="1" tree_state="close"/>
+    </container>
+  </container>
+  <!-- ############ Stages ############ -->
+  <container n="stages" pn="Stages" icon="stage16" help="List of calculation stages.\nInitial stage is indicated as Stage 0." tree_state="open">
+    <blockdata n="stage" pn="stage" name="SlopeFailure" sequence="1" generalinfo="mark_calculate,0,calculation_state,OKcalc,prevcalcstate,OKcalc,total_time,   20.9999999999967     ,number_of_active_elements,         304,cps_extension_after_calc,CPS_022,out_num_material_points,          -1,out_material_points,,prev_stage_steps,21" sequence_type="non_void_deactivated" active="1" editable_name="unique" icon="stage16" before_update_proc="" update_proc="" open_window="0" help="Adds a new calculation stage to the sequential stages list.\nEach calculation stage corresponds to a particular construction stage." tree_state="open">
+      <value n="update_materials" pn="Update Materials" icon="icon_material" values="do not apply,apply" v="do not apply" state="[activate_not_initial_stage %W]"/>
+      <container n="materials" pn="Materials" icon="icon_material" tree_state="open">
+        <blockdata n="material" name="Slope" sequence="1" editable_name="unique" morebutton="0" icon="icon_material" tree_state="open">
+          <container n="_basic" pn="BASIC PROPERTIES" tree_state="open">
+            <value n="material_type_" pn="Material type" v="Unsaturated material-2-phase with suction effect" values="Dry material,Saturated material-drained,Saturated material-undrained effective stress,Saturated material-undrained total stress,Saturated material-fully coupled,Unsaturated material-2-phase with suction effect,Unsaturated material-3-phase fully coupled,Liquid" actualize_tree="1" tree_state="close"/>
+            <value n="initial_porosity_" pn="initial porosity" v="0.4" state="[hide_show_y_n_liq_n %W]" tree_state="close"/>
+            <value n="density_solid_" pn="density solid" v="2650" state="[hide_show_y_n_liq_n %W]" tree_state="close"/>
+            <value n="density_liquid_" pn="density liquid" v="1000" state="[hide_show_y_n_dry %W]" tree_state="close"/>
+            <value n="K0-value_" pn="K0-value" v="0.45" state="[hide_show_y_n_liq_n %W]" tree_state="close"/>
+            <value n="intrinsic_permeability_liquid_" pn="intrinsic permeability liquid" v="6e-12" state="[hide_show_y_n_intr_perm %W]" tree_state="close"/>
+            <value n="bulk__modulus_liquid_" pn="bulk modulus liquid" v="60000" state="[hide_show_y_n_sat_ful %W]" tree_state="close"/>
+            <value n="dinamic_viscosity_liquid_" pn="liquid dinamic viscosity" v="1e-6" state="[hide_show_y_n_sat_ful %W]" tree_state="close"/>
+            <value n="liquid_cavitation_" pn="liquid cavitation" v="0.0" state="[hide_show_y_n_liq_y %W]"/>
+            <value n="detect_free_surface_liquid_" pn="detect free surface" v="No" values="No,Yes" help="No= no free surface detection, Yes= free surface detection" actualize_tree="1" state="[hide_show_y_n_liq_y %W]"/>
+            <value n="free_surface_factor_" pn="free surface factor" help="Free surface factor" v="0.0" state="[free_surf_fact %W]"/>
+            <value n="density_gas_" pn="density gas" v="0.0" state="[hide_show_y_n_un_3 %W]"/>
+            <value n="intrinsic_permeability_gas_" pn="intrinsic permeability gas" v="0.0" state="[hide_show_y_n_un_3 %W]"/>
+            <value n="bulk__modulus_gas_" pn="bulk modulus gas" v="0.0" state="[hide_show_y_n_un_3 %W]"/>
+            <value n="dinamic_viscosity_gas_" pn="gas dinamic viscosity" v="0.0" state="[hide_show_y_n_un_3 %W]"/>
+            <value n="elastic_swelling_index_" pn="elastic swelling index" v="0.0" state="[hide_show_y_n_un_3 %W]"/>
+          </container>
+          <container n="_material_constitutive_model" pn="MATERIAL CONSTITUTIVE MODEL" state="[hide_show_const_model_mat_type_n Liquid %W]" tree_state="open">
+            <value n="_material_model_solid_" pn="Solid material model" values="Rigid body,Linear Elasticity,Mohr-Coulomb,External Material Model" v="Mohr-Coulomb" state="[hide_show_const_model_mat_type_n Liquid %W]" actualize_tree="1" tree_state="close"/>
+            <value n="material_model_dll_" pn="Name of the external material model" v="" state="[hide_show_const_model {External Material Model} %W]"/>
+            <value n="material_model_dll_dim_" pn="Size of stress tensor" values="2D,3D" v="3D" state="[hide_show_const_model {External Material Model} %W]"/>
+            <value n="x-constr" pn="Constraint x-displacement" values="No,Yes" v="No" help="Must be used with contact algorithm" state="[hide_show_const_model {Rigid body} %W]" tree_state="close"/>
+            <value n="y-constr" pn="Constraint y-displacement" values="No,Yes" v="No" help="Must be used with contact algorithm" state="[hide_show_const_model {Rigid body} %W]" tree_state="close"/>
+            <value n="z-constr" pn="Constraint z-displacement" values="No,Yes" v="No" help="Must be used with contact algorithm" state="[hide_show_const_model_z {Rigid body} %W]"/>
+            <value n="eff_poisson_ratio_" pn="Effective Poisson ratio" v="0.3" state="[hide_show_const_model_multi {Linear Elasticity} {Mohr-Coulomb} %W]" tree_state="close"/>
+            <value n="undr_poisson_ratio_" pn="Undrained Poisson ratio" v="0.0" state="[hide_show_const_model_multi_undr {Linear Elasticity} {Mohr-Coulomb} %W]"/>
+            <value n="eff_Young_modulus_" pn="Effective Young modulus" v="30000" state="[hide_show_const_model_multi {Linear Elasticity} {Mohr-Coulomb} %W]" tree_state="close"/>
+            <value n="eff_cohesion_" pn="Effective Cohesion" v="1" state="[hide_show_const_model {Mohr-Coulomb} %W]" tree_state="close"/>
+            <value n="eff_friction_angle_" pn="Effective Friction Angle" v="27" state="[hide_show_const_model {Mohr-Coulomb} %W]" tree_state="close"/>
+            <value n="eff_dilatancy_angle_" pn="Effective Dilatancy Angle" v="0.0" state="[hide_show_const_model {Mohr-Coulomb} %W]" tree_state="close"/>
+            <value n="eff_tensile_strength_" pn="Effective Tensile Strength" v="0.0" state="[hide_show_const_model {Mohr-Coulomb} %W]" tree_state="close"/>
+            <container n="mat_params" pn="Define material parameters and state variables" state="[hide_show_const_model {External Material Model} %W]" help="Define material parameters and state variables">
+              <value n="number_mat_params" pn="Number of material parameters" string_is="integer" v="50" help="Enter the number of material parameters"/>
+              <value n="number_state_var" pn="Number of state variables" string_is="integer" v="50" help="Enter the number of state variables"/>
+              <edit_command n="edit_number_mat_params" pn="Material parameters and state variables" proc="MaterialParameters::mat_params_window %W" edit_type="exclusive"/>
+            </container>
+            <value n="_material_model_liquid_" pn="Liquid material model" v="" values="Newtonian,Bingham Fluid,Frictional Fluid" help="No= no free surface detection, Yes= free surface detection" actualize_tree="1" state="[hide_show_const_model_mat_type_y Liquid %W]"/>
+            <value n="elastic_young_modulus_l_" pn="Elastic Young modulus" v="0.0" state="[hide_show_const_model_multi_liq {Bingham Fluid} {Frictional Fluid} %W]"/>
+            <value n="elastic_poisson_ratio_l_" pn="Elastic Poisson ratio" v="0.0" state="[hide_show_const_model_multi_liq {Bingham Fluid} {Frictional Fluid} %W]"/>
+            <value n="bingham_yield_stress_" pn="Bingham yield stress" v="0.0" state="[hide_show_const_model_liq {Bingham Fluid} %W]"/>
+            <value n="fluid_friction_angle_" pn="Fluid friction angle" v="0.0" state="[hide_show_const_model_liq {Frictional Fluid} %W]"/>
+            <value n="_unsat_retention_curve_" pn="Liquid Retention curve" v="Linear" values="Linear,Van Genuchten" actualize_tree="1" state="[is_unsat %W]" tree_state="close"/>
+            <value n="_unsat_rc_linear" pn="Linear coefficient" v="4e-4" state="[is_unsat_ret {Linear} %W]" tree_state="close"/>
+            <value n="slrc_min_deg_sat_" pn="Minumin degree of saturation" v="0.0" state="[is_unsat_ret {Van Genuchten} %W]"/>
+            <value n="slrc_max_deg_sat_" pn="Maximum degree of saturation" v="0.0" state="[is_unsat_ret {Van Genuchten} %W]"/>
+            <value n="slrc_ref_press_" pn="Reference pressure" v="0.0" state="[is_unsat_ret {Van Genuchten} %W]"/>
+            <value n="slrc_lambda_" pn="Lambda" v="0.0" state="[is_unsat_ret {Van Genuchten} %W]"/>
+            <value n="_unsat_hydraulic_cond_" pn="Hydarulic conductivity curve" v="Constant" values="Constant,Hillel,Mualem" state="[is_unsat %W]" tree_state="close"/>
+            <value n="hycon_r_exp" pn="r exponent" v="0.0" state="[is_unsat_cond {Hillel} %W]"/>
+            <value n="hycon_min_deg_sat_" pn="Minumin degree of saturation" v="0.0" state="[is_unsat_cond {Mualem} %W]"/>
+            <value n="hycon_max_deg_sat_" pn="Maximum degree of saturation" v="0.0" state="[is_unsat_cond {Mualem} %W]"/>
+            <value n="hycon_ref_press_" pn="Reference pressure" v="0.0" state="[is_unsat_cond {Mualem} %W]"/>
+            <value n="hycon_lambda_" pn="Lambda" v="0.0" state="[is_unsat_cond {Mualem} %W]"/>
+          </container>
+        </blockdata>
+      </container>
+      <container n="MPspecification" pn="Material Point Specification" icon="icon_mps" state="[activate_initial_stage %W %dict %BC]" tree_state="open">
+        <condition n="2D_Single-point" pn="2D Single-point" ov="surface" ovm="element" ov_element_types="triangle" icon="darkorange-shellfish-18" groups_icon="yelowish-group" help="Select your material and the surfaces related to it" state="[check_dim_points 2D:plane-strain 2D:Axissymmetric Single_point %W]" tree_state="open">
+          <value n="material" pn="Material" editable="0" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" v="specify" state="">
+            <edit_command n="Edit materials" pn="Edit materials" icon="icon_material" proc="Anura3D::EditDatabase %W %DICT %BC"/>
+          </value>
+          <value n="solid_MP_number" pn="Number of material points" values="0,1,3,6,12,16,25,46,88" v="0" help="Number of material points per element" state=""/>
+          <value n="material_damping" pn="Material viscous damping" editable="0" help="Damping coefficient" v="0.0" state=""/>
+          <group n="2D Single-point Auto2" ov="surface" tree_state="close">
+            <value n="material" pn="Material" editable="0" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" state="normal" v="Slope" tree_state="close"/>
+            <value n="solid_MP_number" pn="Number of material points" values="0,1,3,6,12,16,25,46,88" help="Number of material points per element" state="normal" v="3" tree_state="close"/>
+            <value n="material_damping" pn="Material viscous damping" editable="0" help="Damping coefficient" state="normal" v="0.0" tree_state="close"/>
+          </group>
+        </condition>
+        <condition n="2D_Double-point" pn="2D Double-point" ov="surface" ovm="element" ov_element_types="triangle" icon="darkorange-shellfish-18" groups_icon="yelowish-group" help="Select your material and the surfaces related to it" state="[check_dim_points 2D:plane-strain 2D:Axissymmetric Double_point %W]">
+          <value n="material" pn="Material" editable="0" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" v="specify">
+            <edit_command n="Edit materials" pn="Edit materials" icon="icon_material" proc="Anura3D::EditDatabase %W %DICT %BC"/>
+          </value>
+          <value n="solid_MP_number" pn="Number of solid material points" values="0,1,3,6,12,16,25,46,88" v="0" help="Number of solid material points per element"/>
+          <value n="liquid_MP_number" pn="Number of liquid material points" values="0,1,3,6,12,16,25,46,88" v="0" help="Number of liquid material points per element"/>
+          <value n="material_damping" pn="Material viscous damping" editable="0" help="Damping coefficient" v="0.0"/>
+        </condition>
+        <condition n="3D_Single-point" pn="3D Single-point" ov="volume" ovm="element" ov_element_types="tetrahedra" icon="darkorange-shellfish-18" groups_icon="yelowish-group" help="Select your material and the surfaces related to it" state="[check_dim_points 3D 3D:Axissymmetric Single_point %W]">
+          <value n="material" pn="Material" editable="0" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" v="specify">
+            <edit_command n="Edit materials" pn="Edit materials" icon="icon_material" proc="Anura3D::EditDatabase %W %DICT %BC"/>
+          </value>
+          <value n="solid_MP_number" pn="Number of material points" values="0,1,4,7,8,10,13,20" v="0" help="Number of material points per element"/>
+          <value n="material_damping" pn="Material viscous damping" editable="0" help="Damping coefficient" v="0.0"/>
+        </condition>
+        <condition n="3D_Double-point" pn="3D Double-point" ov="volume" ovm="element" ov_element_types="tetrahedra" icon="darkorange-shellfish-18" groups_icon="yelowish-group" help="Select your material and the surfaces related to it" state="[check_dim_points 3D 3D:Axissymmetric Double_point %W]">
+          <value n="material" pn="Material" editable="0" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" v="specify">
+            <edit_command n="Edit materials" pn="Edit materials" icon="icon_material" proc="Anura3D::EditDatabase %W %DICT %BC"/>
+          </value>
+          <value n="solid_MP_number" pn="Number of solid material points" values="0,1,4,7,8,10,13,20" v="0" help="Number of solid material points per element"/>
+          <value n="liquid_MP_number" pn="Number of liquid material points" values="0,1,4,7,8,10,13,20" v="0" help="Number of liquid material points per element"/>
+          <value n="material_damping" pn="Material viscous damping" editable="0" help="Damping coefficient" v="0.0"/>
+        </condition>
+      </container>
+      <container n="Initial_cond" pn="Initial conditions" icon="" help="Specify initial conditions for the problem." state="[activate_initial_stage %W %dict %BC]" tree_state="open">
+        <condition n="Initial_MP_velocity" pn="Initial Velocity (on material points)" icon="icon_initial" ov="[check_dim_surface_volume 2D:plane-strain 2D:Axissymmetric %W]" ovm="element" help="Use this condition to apply an initial velocity on material points" actualize_tree="1" tree_state="close">
+          <value n="X_direction" pn="x direction [m/s]" v="0.0"/>
+          <value n="Y_direction" pn="y direction [m/s]" v="0.0"/>
+          <value n="Z_direction" pn="z direction [m/s]" v="0.0" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1"/>
+        </condition>
+        <container n="Stress_initialization" pn="Stress Initialization" icon="" tree_state="open">
+          <value n="Apply_K0" pn="K0-PROCEDURE" icon="icon_K0" values="do not apply,apply" v="do not apply" tree_state="close">
+            <dependencies node="../container[@n='Not-horizontal']" att1="state" v1="normal" value="apply"/>
+            <dependencies node="../container[@n='Not-horizontal']" att1="state" v1="hidden" value="do not apply"/>
+            <dependencies node="../container[@n='Horizontal']" att1="state" v1="normal" value="apply"/>
+            <dependencies node="../container[@n='Horizontal']" att1="state" v1="hidden" value="do not apply"/>
+            <dependencies node="../value[@n='initial_vertical_load']" att1="state" v1="normal" value="apply"/>
+            <dependencies node="../value[@n='initial_vertical_load']" att1="state" v1="hidden" value="do not apply"/>
+            <dependencies node="../value[@n='INITIAL_WATER_PRESSURE']" att1="state" v1="normal" value="apply"/>
+            <dependencies node="../value[@n='INITIAL_WATER_PRESSURE']" att1="state" v1="hidden" value="do not apply"/>
+          </value>
+          <container n="Not-horizontal" pn="General condition (not-horizontal surface)" icon="" state="hidden" tree_state="open">
+            <condition n="Soil_surface" pn="Soil Surface" ov="line" ovm="face_element" icon="icon_soil_surface" help="Select lines of geometry to assign the initial soil surface" state="[check_dim 2D:plane-strain 2D:Axissymmetric %W]" tree_state="open">
+              <group n="Soil Surface Auto2" ov="line" tree_state="close"/>
+            </condition>
+            <container n="Phreatic_surface" pn="Phreatic Surface" icon="icon_phreatic" tree_state="open">
+              <condition n="Phreatic_surface_line" pn="Select water table profile" icon="icon_phreatic" ov="line" ovm="face_element" help="Select lines of geometry to define the initial phreatic surface" state="[check_dim 2D:plane-strain 2D:Axissymmetric %W]" tree_state="close"/>
+              <blockdata n="Phreatic_surface" name="Add water table 1" sequence="1" editable_name="unique" morebutton="0" icon="icon_phreatic" tree_state="open">
+                <edit_command n="water_table" pn="Add water table" proc="WaterTable::create_table %W" edit_type="exclusive"/>
+                <value n="Number_of_materials" pn="Number of materials" icon="icon_phreatic" values="please specify,1,2,3,4,5" v="1" tree_state="close">
+                  <dependencies node="../value[@n='material_phreatic_surface_file1']" att1="state" v1="hidden" value="please specify"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file1']" att1="state" v1="normal" value="1"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file1']" att1="state" v1="normal" value="2"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file1']" att1="state" v1="normal" value="3"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file1']" att1="state" v1="normal" value="4"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file1']" att1="state" v1="normal" value="5"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file2']" att1="state" v1="hidden" value="please specify"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file2']" att1="state" v1="hidden" value="1"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file2']" att1="state" v1="normal" value="2"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file2']" att1="state" v1="normal" value="3"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file2']" att1="state" v1="normal" value="4"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file2']" att1="state" v1="normal" value="5"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file3']" att1="state" v1="hidden" value="please specify"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file3']" att1="state" v1="hidden" value="1"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file3']" att1="state" v1="hidden" value="2"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file3']" att1="state" v1="normal" value="3"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file3']" att1="state" v1="normal" value="4"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file3']" att1="state" v1="normal" value="5"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file4']" att1="state" v1="hidden" value="please specify"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file4']" att1="state" v1="hidden" value="1"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file4']" att1="state" v1="hidden" value="2"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file4']" att1="state" v1="hidden" value="3"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file4']" att1="state" v1="normal" value="4"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file4']" att1="state" v1="normal" value="5"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file5']" att1="state" v1="hidden" value="please specify"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file5']" att1="state" v1="hidden" value="1"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file5']" att1="state" v1="hidden" value="2"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file5']" att1="state" v1="hidden" value="3"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file5']" att1="state" v1="hidden" value="4"/>
+                  <dependencies node="../value[@n='material_phreatic_surface_file5']" att1="state" v1="normal" value="5"/>
+                </value>
+                <value n="material_phreatic_surface_file1" pn="Material 1" editable="0" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" v="Slope" state="normal" icon="icon_phreatic" tree_state="close">
+                  <edit_command n="Edit materials" pn="Edit materials" icon="darkorange-block1.png" proc="Anura3D::EditDatabase %W %DICT %BC"/>
+                </value>
+                <value n="material_phreatic_surface_file2" pn="Material 2" editable="0" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" v="Slope" state="hidden" icon="icon_phreatic">
+                  <edit_command n="Edit materials" pn="Edit materials" icon="darkorange-block1.png" proc="Anura3D::EditDatabase %W %DICT %BC"/>
+                </value>
+                <value n="material_phreatic_surface_file3" pn="Material 3" editable="0" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" v="Slope" state="hidden" icon="icon_phreatic">
+                  <edit_command n="Edit materials" pn="Edit materials" icon="darkorange-block1.png" proc="Anura3D::EditDatabase %W %DICT %BC"/>
+                </value>
+                <value n="material_phreatic_surface_file4" pn="Material 4" editable="0" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" v="Slope" state="hidden" icon="icon_phreatic">
+                  <edit_command n="Edit materials" pn="Edit materials" icon="darkorange-block1.png" proc="Anura3D::EditDatabase %W %DICT %BC"/>
+                </value>
+                <value n="material_phreatic_surface_file5" pn="Material 5" editable="0" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" v="Slope" state="hidden" icon="icon_phreatic">
+                  <edit_command n="Edit materials" pn="Edit materials" icon="darkorange-block1.png" proc="Anura3D::EditDatabase %W %DICT %BC"/>
+                </value>
+                <container n="water_table_data" pn="Water table data" state="hidden">
+                  <value n="x y" pn="x y" v="0.0 2" state="hidden"/>
+                  <value n="x y" pn="x y" v="0.6 2" state="hidden"/>
+                  <value n="x y" pn="x y" v="1.2 1.99" state="hidden"/>
+                  <value n="x y" pn="x y" v="1.8 1.96" state="hidden"/>
+                  <value n="x y" pn="x y" v="2.4 1.91" state="hidden"/>
+                  <value n="x y" pn="x y" v="3 1.82" state="hidden"/>
+                  <value n="x y" pn="x y" v="3.6 1.7" state="hidden"/>
+                  <value n="x y" pn="x y" v="4.2 1.55" state="hidden"/>
+                  <value n="x y" pn="x y" v="4.8 1.35" state="hidden"/>
+                  <value n="x y" pn="x y" v="5.4 1.12" state="hidden"/>
+                  <value n="x y" pn="x y" v="6 0.85" state="hidden"/>
+                  <value n="x y" pn="x y" v="6.6 0.6" state="hidden"/>
+                  <value n="x y" pn="x y" v="10 0.6" state="hidden"/>
+                </container>
+              </blockdata>
+            </container>
+            <value n="MAX_SUCTION_AT_SOIL_SURFACE" pn="Max suction at soil surface [kPa]" values="do not specify,specify" v="do not specify" state="normal" actualize_tree="1" tree_state="close">
+              <dependencies node="../value[@n='suction']" att1="state" v1="normal" value="specify"/>
+              <dependencies node="../value[@n='suction']" att1="state" v1="hidden" value="do not specify"/>
+            </value>
+            <value n="suction" pn="Suction [kPa]" v="0.0" state="hidden"/>
+          </container>
+          <container n="Horizontal" pn="Horizontal layered soil" icon="" ov="point" ovm="node" state="hidden" tree_state="close">
+            <value n="soil_surface" pn="Soil surface elevation [m]" help="Specify the soil surface elevation" format="%.6g" v="0.0" state="normal"/>
+            <value n="NUMBER_OF_LAYERS" pn="Number of layers" values="none,1,2,3,4,5,6,7,8,9,10" v="none" state="normal" actualize_tree="1">
+              <dependencies node="../value[@n='layer_thickness_1']" att1="state" v1="hidden" value="none"/>
+              <dependencies node="../value[@n='layer_thickness_1']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='layer_thickness_1']" att1="state" v1="normal" value="2"/>
+              <dependencies node="../value[@n='layer_thickness_1']" att1="state" v1="normal" value="3"/>
+              <dependencies node="../value[@n='layer_thickness_1']" att1="state" v1="normal" value="4"/>
+              <dependencies node="../value[@n='layer_thickness_1']" att1="state" v1="normal" value="5"/>
+              <dependencies node="../value[@n='layer_thickness_1']" att1="state" v1="normal" value="6"/>
+              <dependencies node="../value[@n='layer_thickness_1']" att1="state" v1="normal" value="7"/>
+              <dependencies node="../value[@n='layer_thickness_1']" att1="state" v1="normal" value="8"/>
+              <dependencies node="../value[@n='layer_thickness_1']" att1="state" v1="normal" value="9"/>
+              <dependencies node="../value[@n='layer_thickness_1']" att1="state" v1="normal" value="10"/>
+              <dependencies node="../value[@n='layer_thickness_2']" att1="state" v1="hidden" value="none"/>
+              <dependencies node="../value[@n='layer_thickness_2']" att1="state" v1="hidden" value="1"/>
+              <dependencies node="../value[@n='layer_thickness_2']" att1="state" v1="normal" value="2"/>
+              <dependencies node="../value[@n='layer_thickness_2']" att1="state" v1="normal" value="3"/>
+              <dependencies node="../value[@n='layer_thickness_2']" att1="state" v1="normal" value="4"/>
+              <dependencies node="../value[@n='layer_thickness_2']" att1="state" v1="normal" value="5"/>
+              <dependencies node="../value[@n='layer_thickness_2']" att1="state" v1="normal" value="6"/>
+              <dependencies node="../value[@n='layer_thickness_2']" att1="state" v1="normal" value="7"/>
+              <dependencies node="../value[@n='layer_thickness_2']" att1="state" v1="normal" value="8"/>
+              <dependencies node="../value[@n='layer_thickness_2']" att1="state" v1="normal" value="9"/>
+              <dependencies node="../value[@n='layer_thickness_2']" att1="state" v1="normal" value="10"/>
+              <dependencies node="../value[@n='layer_thickness_3']" att1="state" v1="hidden" value="none"/>
+              <dependencies node="../value[@n='layer_thickness_3']" att1="state" v1="hidden" value="1"/>
+              <dependencies node="../value[@n='layer_thickness_3']" att1="state" v1="hidden" value="2"/>
+              <dependencies node="../value[@n='layer_thickness_3']" att1="state" v1="normal" value="3"/>
+              <dependencies node="../value[@n='layer_thickness_3']" att1="state" v1="normal" value="4"/>
+              <dependencies node="../value[@n='layer_thickness_3']" att1="state" v1="normal" value="5"/>
+              <dependencies node="../value[@n='layer_thickness_3']" att1="state" v1="normal" value="6"/>
+              <dependencies node="../value[@n='layer_thickness_3']" att1="state" v1="normal" value="7"/>
+              <dependencies node="../value[@n='layer_thickness_3']" att1="state" v1="normal" value="8"/>
+              <dependencies node="../value[@n='layer_thickness_3']" att1="state" v1="normal" value="9"/>
+              <dependencies node="../value[@n='layer_thickness_3']" att1="state" v1="normal" value="10"/>
+              <dependencies node="../value[@n='layer_thickness_4']" att1="state" v1="hidden" value="none"/>
+              <dependencies node="../value[@n='layer_thickness_4']" att1="state" v1="hidden" value="1"/>
+              <dependencies node="../value[@n='layer_thickness_4']" att1="state" v1="hidden" value="2"/>
+              <dependencies node="../value[@n='layer_thickness_4']" att1="state" v1="hidden" value="3"/>
+              <dependencies node="../value[@n='layer_thickness_4']" att1="state" v1="normal" value="4"/>
+              <dependencies node="../value[@n='layer_thickness_4']" att1="state" v1="normal" value="5"/>
+              <dependencies node="../value[@n='layer_thickness_4']" att1="state" v1="normal" value="6"/>
+              <dependencies node="../value[@n='layer_thickness_4']" att1="state" v1="normal" value="7"/>
+              <dependencies node="../value[@n='layer_thickness_4']" att1="state" v1="normal" value="8"/>
+              <dependencies node="../value[@n='layer_thickness_4']" att1="state" v1="normal" value="9"/>
+              <dependencies node="../value[@n='layer_thickness_4']" att1="state" v1="normal" value="10"/>
+              <dependencies node="../value[@n='layer_thickness_5']" att1="state" v1="hidden" value="none"/>
+              <dependencies node="../value[@n='layer_thickness_5']" att1="state" v1="hidden" value="1"/>
+              <dependencies node="../value[@n='layer_thickness_5']" att1="state" v1="hidden" value="2"/>
+              <dependencies node="../value[@n='layer_thickness_5']" att1="state" v1="hidden" value="3"/>
+              <dependencies node="../value[@n='layer_thickness_5']" att1="state" v1="hidden" value="4"/>
+              <dependencies node="../value[@n='layer_thickness_5']" att1="state" v1="normal" value="5"/>
+              <dependencies node="../value[@n='layer_thickness_5']" att1="state" v1="normal" value="6"/>
+              <dependencies node="../value[@n='layer_thickness_5']" att1="state" v1="normal" value="7"/>
+              <dependencies node="../value[@n='layer_thickness_5']" att1="state" v1="normal" value="8"/>
+              <dependencies node="../value[@n='layer_thickness_5']" att1="state" v1="normal" value="9"/>
+              <dependencies node="../value[@n='layer_thickness_5']" att1="state" v1="normal" value="10"/>
+              <dependencies node="../value[@n='layer_thickness_6']" att1="state" v1="hidden" value="none"/>
+              <dependencies node="../value[@n='layer_thickness_6']" att1="state" v1="hidden" value="1"/>
+              <dependencies node="../value[@n='layer_thickness_6']" att1="state" v1="hidden" value="2"/>
+              <dependencies node="../value[@n='layer_thickness_6']" att1="state" v1="hidden" value="3"/>
+              <dependencies node="../value[@n='layer_thickness_6']" att1="state" v1="hidden" value="4"/>
+              <dependencies node="../value[@n='layer_thickness_6']" att1="state" v1="hidden" value="5"/>
+              <dependencies node="../value[@n='layer_thickness_6']" att1="state" v1="normal" value="6"/>
+              <dependencies node="../value[@n='layer_thickness_6']" att1="state" v1="normal" value="7"/>
+              <dependencies node="../value[@n='layer_thickness_6']" att1="state" v1="normal" value="8"/>
+              <dependencies node="../value[@n='layer_thickness_6']" att1="state" v1="normal" value="9"/>
+              <dependencies node="../value[@n='layer_thickness_6']" att1="state" v1="normal" value="10"/>
+              <dependencies node="../value[@n='layer_thickness_7']" att1="state" v1="hidden" value="none"/>
+              <dependencies node="../value[@n='layer_thickness_7']" att1="state" v1="hidden" value="1"/>
+              <dependencies node="../value[@n='layer_thickness_7']" att1="state" v1="hidden" value="2"/>
+              <dependencies node="../value[@n='layer_thickness_7']" att1="state" v1="hidden" value="3"/>
+              <dependencies node="../value[@n='layer_thickness_7']" att1="state" v1="hidden" value="4"/>
+              <dependencies node="../value[@n='layer_thickness_7']" att1="state" v1="hidden" value="5"/>
+              <dependencies node="../value[@n='layer_thickness_7']" att1="state" v1="hidden" value="6"/>
+              <dependencies node="../value[@n='layer_thickness_7']" att1="state" v1="normal" value="7"/>
+              <dependencies node="../value[@n='layer_thickness_7']" att1="state" v1="normal" value="8"/>
+              <dependencies node="../value[@n='layer_thickness_7']" att1="state" v1="normal" value="9"/>
+              <dependencies node="../value[@n='layer_thickness_7']" att1="state" v1="normal" value="10"/>
+              <dependencies node="../value[@n='layer_thickness_8']" att1="state" v1="hidden" value="none"/>
+              <dependencies node="../value[@n='layer_thickness_8']" att1="state" v1="hidden" value="1"/>
+              <dependencies node="../value[@n='layer_thickness_8']" att1="state" v1="hidden" value="2"/>
+              <dependencies node="../value[@n='layer_thickness_8']" att1="state" v1="hidden" value="3"/>
+              <dependencies node="../value[@n='layer_thickness_8']" att1="state" v1="hidden" value="4"/>
+              <dependencies node="../value[@n='layer_thickness_8']" att1="state" v1="hidden" value="5"/>
+              <dependencies node="../value[@n='layer_thickness_8']" att1="state" v1="hidden" value="6"/>
+              <dependencies node="../value[@n='layer_thickness_8']" att1="state" v1="hidden" value="7"/>
+              <dependencies node="../value[@n='layer_thickness_8']" att1="state" v1="normal" value="8"/>
+              <dependencies node="../value[@n='layer_thickness_8']" att1="state" v1="normal" value="9"/>
+              <dependencies node="../value[@n='layer_thickness_8']" att1="state" v1="normal" value="10"/>
+              <dependencies node="../value[@n='layer_thickness_9']" att1="state" v1="hidden" value="none"/>
+              <dependencies node="../value[@n='layer_thickness_9']" att1="state" v1="hidden" value="1"/>
+              <dependencies node="../value[@n='layer_thickness_9']" att1="state" v1="hidden" value="2"/>
+              <dependencies node="../value[@n='layer_thickness_9']" att1="state" v1="hidden" value="3"/>
+              <dependencies node="../value[@n='layer_thickness_9']" att1="state" v1="hidden" value="4"/>
+              <dependencies node="../value[@n='layer_thickness_9']" att1="state" v1="hidden" value="5"/>
+              <dependencies node="../value[@n='layer_thickness_9']" att1="state" v1="hidden" value="6"/>
+              <dependencies node="../value[@n='layer_thickness_9']" att1="state" v1="hidden" value="7"/>
+              <dependencies node="../value[@n='layer_thickness_9']" att1="state" v1="hidden" value="8"/>
+              <dependencies node="../value[@n='layer_thickness_9']" att1="state" v1="normal" value="9"/>
+              <dependencies node="../value[@n='layer_thickness_9']" att1="state" v1="normal" value="10"/>
+              <dependencies node="../value[@n='layer_thickness_10']" att1="state" v1="hidden" value="none"/>
+              <dependencies node="../value[@n='layer_thickness_10']" att1="state" v1="hidden" value="1"/>
+              <dependencies node="../value[@n='layer_thickness_10']" att1="state" v1="hidden" value="2"/>
+              <dependencies node="../value[@n='layer_thickness_10']" att1="state" v1="hidden" value="3"/>
+              <dependencies node="../value[@n='layer_thickness_10']" att1="state" v1="hidden" value="4"/>
+              <dependencies node="../value[@n='layer_thickness_10']" att1="state" v1="hidden" value="5"/>
+              <dependencies node="../value[@n='layer_thickness_10']" att1="state" v1="hidden" value="6"/>
+              <dependencies node="../value[@n='layer_thickness_10']" att1="state" v1="hidden" value="7"/>
+              <dependencies node="../value[@n='layer_thickness_10']" att1="state" v1="hidden" value="8"/>
+              <dependencies node="../value[@n='layer_thickness_10']" att1="state" v1="hidden" value="9"/>
+              <dependencies node="../value[@n='layer_thickness_10']" att1="state" v1="normal" value="10"/>
+            </value>
+            <value n="layer_thickness_1" pn="Layer thickness 1 [m]" v="" state="hidden"/>
+            <value n="layer_thickness_2" pn="Layer thickness 2 [m]" v="" state="hidden"/>
+            <value n="layer_thickness_3" pn="Layer thickness 3 [m]" v="" state="hidden"/>
+            <value n="layer_thickness_4" pn="Layer thickness 4 [m]" v="" state="hidden"/>
+            <value n="layer_thickness_5" pn="Layer thickness 5 [m]" v="" state="hidden"/>
+            <value n="layer_thickness_6" pn="Layer thickness 6 [m]" v="" state="hidden"/>
+            <value n="layer_thickness_7" pn="Layer thickness 7 [m]" v="" state="hidden"/>
+            <value n="layer_thickness_8" pn="Layer thickness 8 [m]" v="" state="hidden"/>
+            <value n="layer_thickness_9" pn="Layer thickness 9 [m]" v="" state="hidden"/>
+            <value n="layer_thickness_10" pn="Layer thickness 10 [m]" v="" state="hidden"/>
+          </container>
+          <value n="initial_vertical_load" pn="Initial vertical load [kPa]" icon="icon_K0" v="0.0" state="hidden" tree_state="close"/>
+          <value n="INITIAL_WATER_PRESSURE" pn="Initial water pressure [kPa]" icon="icon_K0" v="0.0" state="hidden" tree_state="close"/>
+          <value n="FROM_FILE" pn="FROM FILE" values="do not assign stresses from external file,assign stresses from external file" v="assign stresses from external file" actualize_tree="1" tree_state="close"/>
+        </container>
+      </container>
+      <container n="BC" pn="Boundary conditions" icon="" open_window="0" help="Specify boundary conditions for the problem." tree_state="open">
+        <container n="Fixities" pn="Fixities" icon="icon_fixity" help="Use this condition to set the fixities of the problem" tree_state="open">
+          <condition n="solid_fixities" pn="Solid Fixities" icon="icon_fixity" ov="point,line,surface" ovm="node" help="Use this condition to apply fixities associated only with solid phase materials" tree_state="open">
+            <value n="X_Constraint" pn="x direction" v="0" values="1,0" help="OFF = free direction, ON = fixed direction" state=""/>
+            <value n="Y_Constraint" pn="y direction" v="0" values="1,0" help="OFF = free direction, ON = fixed direction" state=""/>
+            <value n="Z_Constraint" pn="z direction" v="0" values="1,0" help="OFF = free direction, ON = fixed direction" state="[check_dim 3D 3D:Axissymmetric %W]"/>
+            <group n="Solid Fixities Auto5" ov="line" tree_state="close">
+              <value n="X_Constraint" pn="x direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="" v="1" tree_state="close"/>
+              <value n="Y_Constraint" pn="y direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="" v="0" tree_state="close"/>
+              <value n="Z_Constraint" pn="z direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="[check_dim 3D 3D:Axissymmetric %W]" v="0"/>
+            </group>
+            <group n="Solid Fixities Auto6" ov="line" tree_state="close">
+              <value n="X_Constraint" pn="x direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="" v="1" tree_state="close"/>
+              <value n="Y_Constraint" pn="y direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="" v="1" tree_state="close"/>
+              <value n="Z_Constraint" pn="z direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="[check_dim 3D 3D:Axissymmetric %W]" v="0"/>
+            </group>
+          </condition>
+          <condition n="liquid_fixities" pn="Liquid Fixities" icon="icon_fixity" ov="point,line,surface" help="Use this condition to apply fixities associated only with the liquid phase" tree_state="open">
+            <value n="X_Constraint_liq" pn="x direction" v="0" values="1,0" help="OFF = free direction, ON = fixed direction" state=""/>
+            <value n="Y_Constraint_liq" pn="y direction" v="0" values="1,0" help="OFF = free direction, ON = fixed direction" state=""/>
+            <value n="Z_Constraint_liq" pn="z direction" v="0" values="1,0" help="OFF = free direction, ON = fixed direction" state="[check_dim 3D 3D:Axissymmetric %W]"/>
+            <group n="Liquid Fixities Auto3" ov="line" tree_state="close">
+              <value n="X_Constraint_liq" pn="x direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="normal" v="1" tree_state="close"/>
+              <value n="Y_Constraint_liq" pn="y direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="normal" v="0" tree_state="close"/>
+              <value n="Z_Constraint_liq" pn="z direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="[check_dim 3D 3D:Axissymmetric %W]" v="0"/>
+            </group>
+            <group n="Liquid Fixities Auto4" ov="line" tree_state="close">
+              <value n="X_Constraint_liq" pn="x direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="" v="0" tree_state="close"/>
+              <value n="Y_Constraint_liq" pn="y direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="" v="1" tree_state="close"/>
+              <value n="Z_Constraint_liq" pn="z direction" values="1,0" help="OFF = free direction, ON = fixed direction" state="[check_dim 3D 3D:Axissymmetric %W]" v="0"/>
+            </group>
+          </condition>
+          <condition n="gas_fixities" pn="Gas Fixities" icon="icon_fixity" ov="point,line,surface" help="Use this condition to apply fixities associated only with the gas phase" tree_state="close">
+            <value n="X_Constraint_gas" pn="x direction" v="0" values="1,0" help="OFF = free direction, ON = fixed direction"/>
+            <value n="Y_Constraint_gas" pn="y direction" v="0" values="1,0" help="OFF = free direction, ON = fixed direction"/>
+            <value n="Z_Constraint_gas" pn="z direction" v="0" values="1,0" help="OFF = free direction, ON = fixed direction" state="[check_dim 3D 3D:Axissymmetric %W]"/>
+          </condition>
+        </container>
+        <container n="Absorbing_boundary" pn="Absorbing Boundary" icon="icon_absorbing" help="Use this condition to set the fixities of the problem" tree_state="close">
+          <value n="material_absorbing" pn="Reference Material" icon="icon_absorbing" editable="0" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" v="specify">
+            <edit_command n="Edit materials" pn="Edit materials" icon="icon_material" proc="Anura3D::EditDatabase %W %DICT %BC"/>
+          </value>
+          <condition n="solid_absorbing_node" pn="Solid Absorbing Boundary (Node)" icon="icon_absorbing" help="Use this condition to apply Absorbing Boundary associated only with solid phase materials" ov="point" ovm="node">
+            <value n="X_Constraint" pn="x direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='X_alpha']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_alpha']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='X_delta']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_delta']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="X_alpha" pn="Alpha [-]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="X_delta" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_Constraint" pn="y direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='Y_alpha']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_alpha']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Y_delta']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_delta']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Y_alpha" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_delta" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_Constraint" pn="z direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Z_alpha']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_alpha']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Z_delta']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_delta']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Z_alpha" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_delta" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+          </condition>
+          <condition n="solid_absorbing_line" pn="Solid Absorbing Boundary (Line)" icon="icon_absorbing" help="Use this condition to apply Absorbing Boundary associated only with solid phase materials" ov="line" ovm="node">
+            <value n="X_Constraint" pn="x direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='X_alpha']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_alpha']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='X_delta']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_delta']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="X_alpha" pn="Alpha [-]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="X_delta" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_Constraint" pn="y direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='Y_alpha']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_alpha']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Y_delta']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_delta']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Y_alpha" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_delta" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_Constraint" pn="z direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Z_alpha']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_alpha']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Z_delta']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_delta']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Z_alpha" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_delta" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+          </condition>
+          <condition n="solid_absorbing_surface" pn="Solid Absorbing Boundary (Surface)" icon="icon_absorbing" help="Use this condition to apply Absorbing Boundary associated only with solid phase materials" state="[check_dim 3D 3D:Axissymmetric %W]" ov="surface" ovm="node">
+            <value n="X_Constraint" pn="x direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='X_alpha']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_alpha']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='X_delta']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_delta']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="X_alpha" pn="Alpha [-]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="X_delta" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_Constraint" pn="y direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='Y_alpha']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_alpha']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Y_delta']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_delta']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Y_alpha" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_delta" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_Constraint" pn="z direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Z_alpha']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_alpha']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Z_delta']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_delta']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Z_alpha" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_delta" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+          </condition>
+          <condition n="fluid_absorbing_node" pn="Liquid Absorbing Boundary (Node)" icon="icon_absorbing" help="Use this condition to apply Absorbing Boundary associated only with the liquid phase" ov="point" ovm="node">
+            <value n="X_Constraint_l" pn="x direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='X_alpha_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_alpha_l']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='X_delta_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_delta_l']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="X_alpha_l" pn="Alpha [-]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="X_delta_l" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_Constraint_l" pn="y direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='Y_alpha_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_alpha_l']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Y_delta_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_delta_l']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Y_alpha_l" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_delta_l" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_Constraint_l" pn="z direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Z_alpha_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_alpha_l']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Z_delta_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_delta_l']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Z_alpha_l" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_delta_l" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+          </condition>
+          <condition n="fluid_absorbing_line" pn="Liquid Absorbing Boundary (Line)" icon="icon_absorbing" help="Use this condition to apply Absorbing Boundary associated only with the liquid phase" ov="line" ovm="node">
+            <value n="X_Constraint_l" pn="x direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='X_alpha_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_alpha_l']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='X_delta_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_delta_l']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="X_alpha_l" pn="Alpha [-]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="X_delta_l" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_Constraint_l" pn="y direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='Y_alpha_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_alpha_l']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Y_delta_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_delta_l']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Y_alpha_l" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_delta_l" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_Constraint_l" pn="z direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Z_alpha_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_alpha_l']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Z_delta_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_delta_l']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Z_alpha_l" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_delta_l" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+          </condition>
+          <condition n="fluid_absorbing_surface" pn="Liquid Absorbing Boundary (Surface)" icon="icon_absorbing" help="Use this condition to apply Absorbing Boundary associated only with the liquid phase" state="[check_dim 3D 3D:Axissymmetric %W]" ov="surface" ovm="node">
+            <value n="X_Constraint_l" pn="x direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='X_alpha_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_alpha_l']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='X_delta_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_delta_l']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="X_alpha_l" pn="Alpha [-]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="X_delta_l" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_Constraint_l" pn="y direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" actualize_tree="1">
+              <dependencies node="../value[@n='Y_alpha_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_alpha_l']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Y_delta_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_delta_l']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Y_alpha_l" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Y_delta_l" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_Constraint_l" pn="z direction" v="0" values="1,0" help="OFF = free direction, ON = absorbing direction" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Z_alpha_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_alpha_l']" att1="state" v1="hidden" value="0"/>
+              <dependencies node="../value[@n='Z_delta_l']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_delta_l']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Z_alpha_l" pn="Alpha [-]" editable="0" help="Number of Material points per element" v="0.0" state="hidden"/>
+            <value n="Z_delta_l" pn="Delta [m]" help="Number of Material points per element" v="0.0" state="hidden"/>
+          </condition>
+        </container>
+        <container n="Loading_Conditions" pn="Loading Conditions" icon="icon_load" tree_state="open">
+          <!-- SOLID TRACTION -->
+          <condition n="Solid_traction" pn="Solid traction" icon="icon_load" ov="[check_dim_line_surface 2D:plane-strain 2D:Axissymmetric %W]" ovm="face_element" help="Use this condition to apply a load on solid" tree_state="close">
+            <value n="Local_axes" pn="Local axes" v="0" values="0,1" editable="0" local_axes="disabled" help="If the direction to define is not coincident with the global axes, it is possible to define a set of local axes and prescribe the load related to that local axes">
+              <dependencies node="." att1="local_axes" v1="normal" value="1"/>
+              <dependencies node="." att1="local_axes" v1="disabled" not_value="1"/>
+            </value>
+            <value n="loading_distribution" pn="loading distribution" v="uniform" values="uniform,linear" actualize_tree="1">
+              <dependencies node="../value[@n='X_direction']" att1="state" v1="normal" value="uniform"/>
+              <dependencies node="../value[@n='X_direction']" att1="state" v1="hidden" value="linear"/>
+              <dependencies node="../value[@n='Y_direction']" att1="state" v1="normal" value="uniform"/>
+              <dependencies node="../value[@n='Y_direction']" att1="state" v1="hidden" value="linear"/>
+              <dependencies node="../value[@n='Z_direction']" att1="state" v1="[check_dim 3D 3D:Axissymmetric %W]" value="uniform"/>
+              <dependencies node="../value[@n='Z_direction']" att1="state" v1="hidden" value="linear"/>
+              <dependencies node="../value[@n='reference_point_X_coord']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='reference_point_X_coord']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='reference_point_Y_coord']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='reference_point_Y_coord']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='reference_point_Z_coord']" att1="state" v1="[check_dim 3D 3D:Axissymmetric %W]" value="linear"/>
+              <dependencies node="../value[@n='reference_point_Z_coord']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='tractionX_at_reference_point']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='tractionX_at_reference_point']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='tractionY_at_reference_point']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='tractionY_at_reference_point']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='tractionZ_at_reference_point']" att1="state" v1="[check_dim 3D 3D:Axissymmetric %W]" value="linear"/>
+              <dependencies node="../value[@n='tractionZ_at_reference_point']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientX_of_tractionX']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='gradientX_of_tractionX']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientY_of_tractionX']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='gradientY_of_tractionX']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientZ_of_tractionX']" att1="state" v1="[check_dim 3D 3D:Axissymmetric %W]" value="linear"/>
+              <dependencies node="../value[@n='gradientZ_of_tractionX']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientX_of_tractionY']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='gradientX_of_tractionY']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientY_of_tractionY']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='gradientY_of_tractionY']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientZ_of_tractionY']" att1="state" v1="[check_dim 3D 3D:Axissymmetric %W]" value="linear"/>
+              <dependencies node="../value[@n='gradientZ_of_tractionY']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientX_of_tractionZ']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='gradientX_of_tractionZ']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientY_of_tractionZ']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='gradientY_of_tractionZ']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientZ_of_tractionZ']" att1="state" v1="[check_dim 3D 3D:Axissymmetric %W]" value="linear"/>
+              <dependencies node="../value[@n='gradientZ_of_tractionZ']" att1="state" v1="hidden" value="uniform"/>
+            </value>
+            <value n="X_direction" pn="x direction [kPa]" v="0.0" state="hidden"/>
+            <value n="Y_direction" pn="y direction [kPa]" v="0.0" state="hidden"/>
+            <value n="Z_direction" pn="z direction [kPa]" v="0.0" state="[check_dim 3D 3D:Axissymmetric %W]"/>
+            <value n="reference_point_X_coord" pn="reference point X coord" v="0.0" state="hidden"/>
+            <value n="reference_point_Y_coord" pn="reference point Y coord" v="0.0" state="hidden"/>
+            <value n="reference_point_Z_coord" pn="reference point Z coord" v="0.0" state="hidden"/>
+            <value n="tractionX_at_reference_point" pn="tractionX at reference point [kPa]" v="0.0" state="hidden"/>
+            <value n="tractionY_at_reference_point" pn="tractionY at reference point [kPa]" v="0.0" state="hidden"/>
+            <value n="tractionZ_at_reference_point" pn="tractionZ at reference point [kPa]" v="0.0" state="hidden"/>
+            <value n="gradientX_of_tractionX" pn="gradientX of tractionX" v="0.0" state="hidden"/>
+            <value n="gradientY_of_tractionX" pn="gradientY of tractionX" v="0.0" state="hidden"/>
+            <value n="gradientZ_of_tractionX" pn="gradientZ of tractionX" v="0.0" state="hidden"/>
+            <value n="gradientX_of_tractionY" pn="gradientX of tractionY" v="0.0" state="hidden"/>
+            <value n="gradientY_of_tractionY" pn="gradientY of tractionY" v="0.0" state="hidden"/>
+            <value n="gradientZ_of_tractionY" pn="gradientZ of tractionY" v="0.0" state="hidden"/>
+            <value n="gradientX_of_tractionZ" pn="gradientX of tractionZ" v="0.0" state="[check_dim 3D 3D:Axissymmetric %W]"/>
+            <value n="gradientY_of_tractionZ" pn="gradientY of tractionZ" v="0.0" state="[check_dim 3D 3D:Axissymmetric %W]"/>
+            <value n="gradientZ_of_tractionZ" pn="gradientZ of tractionZ" v="0.0" state="[check_dim 3D 3D:Axissymmetric %W]"/>
+            <value n="apply_traction_on" pn="apply traction on" v="nodes" values="nodes,material points"/>
+            <value n="load_system_" pn="load system" v="A" values="A,B"/>
+          </condition>
+          <!-- LIQUID PRESSURE -->
+          <condition n="Liquid_Pressure" pn="Liquid pressure" icon="icon_load" ov="[check_dim_line_surface 2D:plane-strain 2D:Axissymmetric %W]" ovm="face_element" help="Use this condition to apply a liquid pressure" tree_state="open">
+            <value n="all_directions" pn="all directions" v="uniform" values="uniform,linear" actualize_tree="1" state="">
+              <dependencies node="../value[@n='pressure']" att1="state" v1="normal" value="uniform"/>
+              <dependencies node="../value[@n='pressure']" att1="state" v1="hidden" value="linear"/>
+              <dependencies node="../value[@n='pressure_at_reference_point']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='pressure_at_reference_point']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='reference_point_X_coord_']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='reference_point_X_coord_']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='reference_point_Y_coord_']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='reference_point_Y_coord_']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='reference_point_Z_coord_']" att1="state" v1="[check_dim 3D 3D:Axissymmetric %W]" value="linear"/>
+              <dependencies node="../value[@n='reference_point_Z_coord_']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientX']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='gradientX']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientY']" att1="state" v1="normal" value="linear"/>
+              <dependencies node="../value[@n='gradientY']" att1="state" v1="hidden" value="uniform"/>
+              <dependencies node="../value[@n='gradientZ']" att1="state" v1="[check_dim 3D 3D:Axissymmetric %W]" value="linear"/>
+              <dependencies node="../value[@n='gradientZ']" att1="state" v1="hidden" value="uniform"/>
+            </value>
+            <value n="pressure" pn="pressure [kPa]" v="0.0" state=""/>
+            <value n="pressure_at_reference_point" pn="pressure at reference point [kPa]" v="0.0" state=""/>
+            <value n="reference_point_X_coord_" pn="reference point X coord" v="0.0" state="hidden"/>
+            <value n="reference_point_Y_coord_" pn="reference point Y coord" v="0.0" state="hidden"/>
+            <value n="reference_point_Z_coord_" pn="reference point Z coord" v="0.0" state="hidden"/>
+            <value n="gradientX" pn="gradientX" v="0.0" state="hidden"/>
+            <value n="gradientY" pn="gradientY" v="0.0" state="hidden"/>
+            <value n="gradientZ" pn="gradientZ" v="0.0" state="hidden"/>
+            <value n="apply_pressure_on" pn="apply pressure on" v="nodes" values="nodes,material points" state=""/>
+            <value n="load_system" pn="load system" v="A" values="A,B" state=""/>
+            <group n="Liquid pressure Auto2" ov="line" tree_state="close">
+              <value n="all_directions" pn="all directions" values="uniform,linear" actualize_tree="1" state="normal" v="linear" tree_state="close"/>
+              <value n="pressure" pn="pressure [kPa]" state="hidden" v="0.0"/>
+              <value n="pressure_at_reference_point" pn="pressure at reference point [kPa]" state="normal" v="0.0" tree_state="close"/>
+              <value n="reference_point_X_coord_" pn="reference point X coord" state="normal" v="0.0" tree_state="close"/>
+              <value n="reference_point_Y_coord_" pn="reference point Y coord" state="normal" v="2" tree_state="close"/>
+              <value n="reference_point_Z_coord_" pn="reference point Z coord" state="hidden" v="0.0"/>
+              <value n="gradientX" pn="gradientX" state="normal" v="0.0" tree_state="close"/>
+              <value n="gradientY" pn="gradientY" state="normal" v="9.81" tree_state="close"/>
+              <value n="gradientZ" pn="gradientZ" state="hidden" v="0.0"/>
+              <value n="apply_pressure_on" pn="apply pressure on" values="nodes,material points" state="normal" v="nodes" tree_state="close"/>
+              <value n="load_system" pn="load system" values="A,B" state="normal" v="A" tree_state="close"/>
+            </group>
+          </condition>
+        </container>
+        <container n="Prescribed_velocity" pn="Prescribed Velocity" icon="icon_velocity" actualize_tree="1" tree_state="close">
+          <!-- NODAL PRESCIBED VELOCITY -->
+          <condition n="Nodal_prescribed_velocity" pn="Nodal velocity" icon="icon_velocity" ov="[check_dim_prescribed_velocity 2D:plane-strain 2D:Axissymmetric %W]" ovm="node" help="Use this condition to apply a prescribed velocity on nodes" update_proc="VelocityInTime::UpdateVelocityIntime %W">
+            <value n="X_velocity_node" pn="x direction" v="0" values="1,0" help="OFF = free direction, ON = prescribed velocity direction" actualize_tree="1">
+              <dependencies node="../value[@n='X_velocity_[m/s]']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_velocity_[m/s]']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="X_velocity_[m/s]" pn="velocity [m/s]" v="0.0" state="hidden">
+              <edit_command n="X_Velocity_In_Time_Win" pn="Velocity in time" proc="VelocityInTime::create_table %W" edit_type="exclusive" state="hidden"/>
+            </value>
+            <value n="Y_velocity_node" pn="y direction" v="0" values="1,0" help="OFF = free direction, ON = prescribed velocity direction" actualize_tree="1">
+              <dependencies node="../value[@n='Y_velocity_[m/s]']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_velocity_[m/s]']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Y_velocity_[m/s]" pn="velocity [m/s]" v="0.0" state="hidden">
+              <edit_command n="Y_Velocity_In_Time_Win" pn="Velocity in time" proc="VelocityInTime::create_table %W" edit_type="exclusive" state="hidden"/>
+            </value>
+            <value n="Z_velocity_node" pn="z direction" v="0" values="1,0" help="OFF = free direction, ON = prescribed velocity direction" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Z_velocity_[m/s]']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_velocity_[m/s]']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Z_velocity_[m/s]" pn="velocity [m/s]" v="0.0" state="hidden">
+              <edit_command n="Z_Velocity_In_Time_Win" pn="Velocity in time" proc="VelocityInTime::create_table %W" edit_type="exclusive" state="hidden"/>
+            </value>
+          </condition>
+          <!-- MATERIAL POINT PRESCRIBED VELOCITY -->
+          <condition n="MP_prescribed_velocity" pn="Material point velocity" icon="icon_velocity" ov="[check_dim_surface_volume 2D:plane-strain 2D:Axissymmetric %W]" ovm="element" help="Use this condition to apply a prescribed velocity on material points - Note: Only in combination with moving mesh! Prescribed velocity has to be in moving mesh direction" update_proc="VelocityInTime::UpdateVelocityIntime %W">
+            <value n="X_velocity_MP" pn="x direction" v="0" values="1,0" help="OFF = free direction, ON = prescribed velocity direction" actualize_tree="1">
+              <dependencies node="../value[@n='X_velocity_[m/s]']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='X_velocity_[m/s]']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="X_velocity_[m/s]" pn="velocity [m/s]" v="0.0" state="hidden">
+              <edit_command n="X_Velocity_In_Time_Win" pn="Velocity in time" proc="VelocityInTime::create_table %W" edit_type="exclusive" state="hidden"/>
+            </value>
+            <value n="Y_velocity_MP" pn="y direction" v="0" values="1,0" help="OFF = free direction, ON = prescribed velocity direction" actualize_tree="1">
+              <dependencies node="../value[@n='Y_velocity_[m/s]']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Y_velocity_[m/s]']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Y_velocity_[m/s]" pn="velocity [m/s]" v="0.0" state="hidden">
+              <edit_command n="Y_Velocity_In_Time_Win" pn="Velocity in time" proc="VelocityInTime::create_table %W" edit_type="exclusive" state="hidden"/>
+            </value>
+            <value n="Z_velocity_MP" pn="z direction" v="0" values="1,0" help="OFF = free direction, ON = prescribed velocity direction" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Z_velocity_[m/s]']" att1="state" v1="normal" value="1"/>
+              <dependencies node="../value[@n='Z_velocity_[m/s]']" att1="state" v1="hidden" value="0"/>
+            </value>
+            <value n="Z_velocity_[m/s]" pn="velocity [m/s]" v="0.0" state="hidden" actualize_tree="1">
+              <edit_command n="Z_Velocity_In_Time_Win" pn="Velocity in time" proc="VelocityInTime::create_table %W" edit_type="exclusive" state="hidden"/>
+            </value>
+          </condition>
+        </container>
+        <container n="Hydraulic_Conditions" pn="Hydraulic Conditions" icon="icon_hydraulicBC" tree_state="open">
+          <container n="Hydraulic_head" pn="Hydraulic head" icon="icon_hydraulicBC" actualize_tree="1" tree_state="close">
+            <value n="Minimum_coordinates_hydraulic_head_2D" pn="x- and y-min" help="Assign the minimum coordinates to define hydraulic 2D head area" fieldtype="vector" format="%.6g" dimensions="2" v="0.0,0.0" pick_coordinates="1" state="[check_dim 2D:plane-strain 2D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Minimum_coordinates_hydraulic_head_2D']" att1="v" v1="{@v}"/>
+            </value>
+            <value n="Maximum_coordinates_hydraulic_head_2D" pn="x- and y-max" help="Assign the maximum coordinates to define hydraulic 2D head area" fieldtype="vector" format="%.6g" dimensions="2" v="0.0,0.0" pick_coordinates="1" state="[check_dim 2D:plane-strain 2D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Maximum_coordinates_hydraulic_head_2D']" att1="v" v1="{@v}"/>
+            </value>
+            <value n="Minimum_coordinates_hydraulic_head_3D" pn="x- y- and z-min" help="Assign the minimum coordinates to define hydraulic 3D head area" fieldtype="vector" format="%.6g" dimensions="3" v="0.0,0.0,0.0" pick_coordinates="1" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Minimum_coordinates_hydraulic_head_3D']" att1="v" v1="{@v}"/>
+            </value>
+            <value n="Maximum_coordinates_hydraulic_head_3D" pn="x- y- and z-max" help="Assign the maximum coordinates to define hydraulic 3D head area" fieldtype="vector" format="%.6g" dimensions="3" v="0.0,0.0,0.0" pick_coordinates="1" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Maximum_coordinates_hydraulic_head_3D']" att1="v" v1="{@v}"/>
+            </value>
+            <container n="Hydraulic_Head_In_Time" pn="Hydraulic head in time" icon="icon_hydraulicBC" help="Define hydraulic head in time" state="normal">
+              <edit_command n="Hydraulic_Head_In_Time_Win" pn="Hydraulic head in time" proc="HydraulicHead::create_table %W" edit_type="exclusive"/>
+            </container>
+          </container>
+          <container n="Seepage_face" pn="Seepage face" icon="icon_hydraulicBC" actualize_tree="1" tree_state="open">
+            <value n="Minimum_coordinates_seepage_face_2D" pn="x- and y-min" help="Assign the minimum coordinates to define seepage face area" fieldtype="vector" format="%.6g" dimensions="2" v="0.0,0" pick_coordinates="1" state="[check_dim 2D:plane-strain 2D:Axissymmetric %W]" actualize_tree="1" tree_state="close">
+              <dependencies node="../value[@n='Minimum_coordinates_seepage_face_2D']" att1="v" v1="{@v}"/>
+            </value>
+            <value n="Maximum_coordinates_seepage_face_2D" pn="x- and y-max" help="Assign the maximum coordinates to define seepage face area" fieldtype="vector" format="%.6g" dimensions="2" v="0,0" pick_coordinates="1" state="[check_dim 2D:plane-strain 2D:Axissymmetric %W]" actualize_tree="1" tree_state="close">
+              <dependencies node="../value[@n='Maximum_coordinates_seepage_face_2D']" att1="v" v1="{@v}"/>
+            </value>
+            <value n="Minimum_coordinates_seepage_face_3D" pn="x- y- and z-min" help="Assign the minimum coordinates to define seepage face area" fieldtype="vector" format="%.6g" dimensions="3" v="0.0,0.0,0.0" pick_coordinates="1" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Minimum_coordinates_seepage_face_3D']" att1="v" v1="{@v}"/>
+            </value>
+            <value n="Maximum_coordinates_seepage_face_3D" pn="x- y- and z-max" help="Assign the maximum coordinates to define seepage face area" fieldtype="vector" format="%.6g" dimensions="3" v="0.0,0.0,0.0" pick_coordinates="1" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Maximum_coordinates_seepage_face_3D']" att1="v" v1="{@v}"/>
+            </value>
+          </container>
+          <container n="Infiltration" pn="Infiltration" icon="icon_hydraulicBC" actualize_tree="1" tree_state="open">
+            <value n="Minimum_coordinates_infiltration_2D" pn="x- and y-min" help="Assign the minimum coordinates to define infiltration area" fieldtype="vector" format="%.6g" dimensions="2" v="0.0,-0.60" pick_coordinates="1" state="[check_dim 2D:plane-strain 2D:Axissymmetric %W]" actualize_tree="1" tree_state="close">
+              <dependencies node="../value[@n='Minimum_coordinates_infiltration_2D']" att1="v" v1="{@v}"/>
+            </value>
+            <value n="Maximum_coordinates_infiltration_2D" pn="x- and y-max" help="Assign the maximum coordinates to define infiltration area" fieldtype="vector" format="%.6g" dimensions="2" v="10,3.6" pick_coordinates="1" state="[check_dim 2D:plane-strain 2D:Axissymmetric %W]" actualize_tree="1" tree_state="close">
+              <dependencies node="../value[@n='Maximum_coordinates_infiltration_2D']" att1="v" v1="{@v}"/>
+            </value>
+            <value n="Minimum_coordinates_infiltration_3D" pn="x- y- and z-min" help="Assign the minimum coordinates to define infiltration area" fieldtype="vector" format="%.6g" dimensions="3" v="0.0,0.0,0.0" pick_coordinates="1" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Minimum_coordinates_infiltration_3D']" att1="v" v1="{@v}"/>
+            </value>
+            <value n="Maximum_coordinates_infiltration_3D" pn="x- y- and z-max" help="Assign the maximum coordinates to define infiltration area" fieldtype="vector" format="%.6g" dimensions="3" v="0.0,0.0,0.0" pick_coordinates="1" state="[check_dim 3D 3D:Axissymmetric %W]" actualize_tree="1">
+              <dependencies node="../value[@n='Maximum_coordinates_infiltration_3D']" att1="v" v1="{@v}"/>
+            </value>
+            <container n="Infiltration_rate_value" pn="Infiltration rate value" icon="icon_hydraulicBC" tree_state="open">
+              <value n="X_direction" pn="x direction [m/s]" v="0.0" tree_state="close"/>
+              <value n="Y_direction" pn="y direction [m/s]" v="-2e-4" tree_state="close"/>
+              <value n="Z_direction" pn="z direction [m/s]" v="0.0" state="[check_dim 3D 3D:Axissymmetric %W]"/>
+            </container>
+          </container>
+        </container>
+      </container>
+      <container n="Contact" pn="Contact" icon="icon_contact" actualize_tree="1" tree_state="close">
+        <condition n="Contact_properties" pn="Contact Properties" icon="icon_contact" ov="[check_dim_surface_volume 2D:plane-strain 2D:Axissymmetric %W]" ovm="element" actualize_tree="1">
+          <value n="Number_of_materials" pn="Number of materials" v="1" values="1,2,3,4" actualize_tree="1">
+            <dependencies node="../value[@n='MATERIAL_1']" att1="state" v1="normal" value="1"/>
+            <dependencies node="../value[@n='MATERIAL_1']" att1="state" v1="normal" value="2"/>
+            <dependencies node="../value[@n='MATERIAL_1']" att1="state" v1="normal" value="3"/>
+            <dependencies node="../value[@n='MATERIAL_1']" att1="state" v1="normal" value="4"/>
+            <dependencies node="../value[@n='Friction_1']" att1="state" v1="normal" value="1"/>
+            <dependencies node="../value[@n='Friction_1']" att1="state" v1="normal" value="2"/>
+            <dependencies node="../value[@n='Friction_1']" att1="state" v1="normal" value="3"/>
+            <dependencies node="../value[@n='Friction_1']" att1="state" v1="normal" value="4"/>
+            <dependencies node="../value[@n='Adhesion_1']" att1="state" v1="normal" value="1"/>
+            <dependencies node="../value[@n='Adhesion_1']" att1="state" v1="normal" value="2"/>
+            <dependencies node="../value[@n='Adhesion_1']" att1="state" v1="normal" value="3"/>
+            <dependencies node="../value[@n='Adhesion_1']" att1="state" v1="normal" value="4"/>
+            <dependencies node="../value[@n='MATERIAL_2']" att1="state" v1="hidden" value="1"/>
+            <dependencies node="../value[@n='MATERIAL_2']" att1="state" v1="normal" value="2"/>
+            <dependencies node="../value[@n='MATERIAL_2']" att1="state" v1="normal" value="3"/>
+            <dependencies node="../value[@n='MATERIAL_2']" att1="state" v1="normal" value="4"/>
+            <dependencies node="../value[@n='Friction_2']" att1="state" v1="hidden" value="1"/>
+            <dependencies node="../value[@n='Friction_2']" att1="state" v1="normal" value="2"/>
+            <dependencies node="../value[@n='Friction_2']" att1="state" v1="normal" value="3"/>
+            <dependencies node="../value[@n='Friction_2']" att1="state" v1="normal" value="4"/>
+            <dependencies node="../value[@n='Adhesion_2']" att1="state" v1="hidden" value="1"/>
+            <dependencies node="../value[@n='Adhesion_2']" att1="state" v1="normal" value="2"/>
+            <dependencies node="../value[@n='Adhesion_2']" att1="state" v1="normal" value="3"/>
+            <dependencies node="../value[@n='Adhesion_2']" att1="state" v1="normal" value="4"/>
+            <dependencies node="../value[@n='MATERIAL_3']" att1="state" v1="hidden" value="1"/>
+            <dependencies node="../value[@n='MATERIAL_3']" att1="state" v1="hidden" value="2"/>
+            <dependencies node="../value[@n='MATERIAL_3']" att1="state" v1="normal" value="3"/>
+            <dependencies node="../value[@n='MATERIAL_3']" att1="state" v1="normal" value="4"/>
+            <dependencies node="../value[@n='Friction_3']" att1="state" v1="hidden" value="1"/>
+            <dependencies node="../value[@n='Friction_3']" att1="state" v1="hidden" value="2"/>
+            <dependencies node="../value[@n='Friction_3']" att1="state" v1="normal" value="3"/>
+            <dependencies node="../value[@n='Friction_3']" att1="state" v1="normal" value="4"/>
+            <dependencies node="../value[@n='Adhesion_3']" att1="state" v1="hidden" value="1"/>
+            <dependencies node="../value[@n='Adhesion_3']" att1="state" v1="hidden" value="2"/>
+            <dependencies node="../value[@n='Adhesion_3']" att1="state" v1="normal" value="3"/>
+            <dependencies node="../value[@n='Adhesion_3']" att1="state" v1="normal" value="4"/>
+            <dependencies node="../value[@n='MATERIAL_4']" att1="state" v1="hidden" value="1"/>
+            <dependencies node="../value[@n='MATERIAL_4']" att1="state" v1="hidden" value="2"/>
+            <dependencies node="../value[@n='MATERIAL_4']" att1="state" v1="hidden" value="3"/>
+            <dependencies node="../value[@n='MATERIAL_4']" att1="state" v1="normal" value="4"/>
+            <dependencies node="../value[@n='Friction_4']" att1="state" v1="hidden" value="1"/>
+            <dependencies node="../value[@n='Friction_4']" att1="state" v1="hidden" value="2"/>
+            <dependencies node="../value[@n='Friction_4']" att1="state" v1="hidden" value="3"/>
+            <dependencies node="../value[@n='Friction_4']" att1="state" v1="normal" value="4"/>
+            <dependencies node="../value[@n='Adhesion_4']" att1="state" v1="hidden" value="1"/>
+            <dependencies node="../value[@n='Adhesion_4']" att1="state" v1="hidden" value="2"/>
+            <dependencies node="../value[@n='Adhesion_4']" att1="state" v1="hidden" value="3"/>
+            <dependencies node="../value[@n='Adhesion_4']" att1="state" v1="normal" value="4"/>
+          </value>
+          <value n="MATERIAL_1" pn="MATERIAL 1" v="name" state="normal"/>
+          <value n="Friction_1" pn="Friction 1" v="0.0" state="normal"/>
+          <value n="Adhesion_1" pn="Adhesion 1" v="0.0" state="normal"/>
+          <value n="MATERIAL_2" pn="MATERIAL 2" v="name" state="hidden"/>
+          <value n="Friction_2" pn="Friction 2" v="0.0" state="hidden"/>
+          <value n="Adhesion_2" pn="Adhesion 2" v="0.0" state="hidden"/>
+          <value n="MATERIAL_3" pn="MATERIAL 3" v="name" state="hidden"/>
+          <value n="Friction_3" pn="Friction 3" v="0.0" state="hidden"/>
+          <value n="Adhesion_3" pn="Adhesion 3" v="0.0" state="hidden"/>
+          <value n="MATERIAL_4" pn="MATERIAL 4" v="name" state="hidden"/>
+          <value n="Friction_4" pn="Friction 4" v="0.0" state="hidden"/>
+          <value n="Adhesion_4" pn="Adhesion 4" v="0.0" state="hidden"/>
+        </condition>
+        <value n="node_normal_correction" pn="Node normal correction" values="do not apply,apply" v="do not apply" actualize_tree="1">
+          <dependencies node="../value[@n='number_of_normals']" att1="state" v1="hidden" value="do not apply"/>
+          <dependencies node="../value[@n='number_of_normals']" att1="state" v1="normal" value="apply"/>
+        </value>
+        <value n="number_of_normals" pn="Number of normals" values="none,1,2,3,4,5,6,7,8,9,10" v="none" state="hidden" actualize_tree="1">
+          <dependencies node="../condition[@n='normal_vector_1']" att1="state" v1="hidden" value="none"/>
+          <dependencies node="../condition[@n='normal_vector_1']" att1="state" v1="normal" value="1"/>
+          <dependencies node="../condition[@n='normal_vector_1']" att1="state" v1="normal" value="2"/>
+          <dependencies node="../condition[@n='normal_vector_1']" att1="state" v1="normal" value="3"/>
+          <dependencies node="../condition[@n='normal_vector_1']" att1="state" v1="normal" value="4"/>
+          <dependencies node="../condition[@n='normal_vector_1']" att1="state" v1="normal" value="5"/>
+          <dependencies node="../condition[@n='normal_vector_1']" att1="state" v1="normal" value="6"/>
+          <dependencies node="../condition[@n='normal_vector_1']" att1="state" v1="normal" value="7"/>
+          <dependencies node="../condition[@n='normal_vector_1']" att1="state" v1="normal" value="8"/>
+          <dependencies node="../condition[@n='normal_vector_1']" att1="state" v1="normal" value="9"/>
+          <dependencies node="../condition[@n='normal_vector_1']" att1="state" v1="normal" value="10"/>
+          <dependencies node="../condition[@n='normal_vector_2']" att1="state" v1="hidden" value="none"/>
+          <dependencies node="../condition[@n='normal_vector_2']" att1="state" v1="hidden" value="1"/>
+          <dependencies node="../condition[@n='normal_vector_2']" att1="state" v1="normal" value="2"/>
+          <dependencies node="../condition[@n='normal_vector_2']" att1="state" v1="normal" value="3"/>
+          <dependencies node="../condition[@n='normal_vector_2']" att1="state" v1="normal" value="4"/>
+          <dependencies node="../condition[@n='normal_vector_2']" att1="state" v1="normal" value="5"/>
+          <dependencies node="../condition[@n='normal_vector_2']" att1="state" v1="normal" value="6"/>
+          <dependencies node="../condition[@n='normal_vector_2']" att1="state" v1="normal" value="7"/>
+          <dependencies node="../condition[@n='normal_vector_2']" att1="state" v1="normal" value="8"/>
+          <dependencies node="../condition[@n='normal_vector_2']" att1="state" v1="normal" value="9"/>
+          <dependencies node="../condition[@n='normal_vector_2']" att1="state" v1="normal" value="10"/>
+          <dependencies node="../condition[@n='normal_vector_3']" att1="state" v1="hidden" value="none"/>
+          <dependencies node="../condition[@n='normal_vector_3']" att1="state" v1="hidden" value="1"/>
+          <dependencies node="../condition[@n='normal_vector_3']" att1="state" v1="hidden" value="2"/>
+          <dependencies node="../condition[@n='normal_vector_3']" att1="state" v1="normal" value="3"/>
+          <dependencies node="../condition[@n='normal_vector_3']" att1="state" v1="normal" value="4"/>
+          <dependencies node="../condition[@n='normal_vector_3']" att1="state" v1="normal" value="5"/>
+          <dependencies node="../condition[@n='normal_vector_3']" att1="state" v1="normal" value="6"/>
+          <dependencies node="../condition[@n='normal_vector_3']" att1="state" v1="normal" value="7"/>
+          <dependencies node="../condition[@n='normal_vector_3']" att1="state" v1="normal" value="8"/>
+          <dependencies node="../condition[@n='normal_vector_3']" att1="state" v1="normal" value="9"/>
+          <dependencies node="../condition[@n='normal_vector_3']" att1="state" v1="normal" value="10"/>
+          <dependencies node="../condition[@n='normal_vector_4']" att1="state" v1="hidden" value="none"/>
+          <dependencies node="../condition[@n='normal_vector_4']" att1="state" v1="hidden" value="1"/>
+          <dependencies node="../condition[@n='normal_vector_4']" att1="state" v1="hidden" value="2"/>
+          <dependencies node="../condition[@n='normal_vector_4']" att1="state" v1="hidden" value="3"/>
+          <dependencies node="../condition[@n='normal_vector_4']" att1="state" v1="normal" value="4"/>
+          <dependencies node="../condition[@n='normal_vector_4']" att1="state" v1="normal" value="5"/>
+          <dependencies node="../condition[@n='normal_vector_4']" att1="state" v1="normal" value="6"/>
+          <dependencies node="../condition[@n='normal_vector_4']" att1="state" v1="normal" value="7"/>
+          <dependencies node="../condition[@n='normal_vector_4']" att1="state" v1="normal" value="8"/>
+          <dependencies node="../condition[@n='normal_vector_4']" att1="state" v1="normal" value="9"/>
+          <dependencies node="../condition[@n='normal_vector_4']" att1="state" v1="normal" value="10"/>
+          <dependencies node="../condition[@n='normal_vector_5']" att1="state" v1="hidden" value="none"/>
+          <dependencies node="../condition[@n='normal_vector_5']" att1="state" v1="hidden" value="1"/>
+          <dependencies node="../condition[@n='normal_vector_5']" att1="state" v1="hidden" value="2"/>
+          <dependencies node="../condition[@n='normal_vector_5']" att1="state" v1="hidden" value="3"/>
+          <dependencies node="../condition[@n='normal_vector_5']" att1="state" v1="hidden" value="4"/>
+          <dependencies node="../condition[@n='normal_vector_5']" att1="state" v1="normal" value="5"/>
+          <dependencies node="../condition[@n='normal_vector_5']" att1="state" v1="normal" value="6"/>
+          <dependencies node="../condition[@n='normal_vector_5']" att1="state" v1="normal" value="7"/>
+          <dependencies node="../condition[@n='normal_vector_5']" att1="state" v1="normal" value="8"/>
+          <dependencies node="../condition[@n='normal_vector_5']" att1="state" v1="normal" value="9"/>
+          <dependencies node="../condition[@n='normal_vector_5']" att1="state" v1="normal" value="10"/>
+          <dependencies node="../condition[@n='normal_vector_6']" att1="state" v1="hidden" value="none"/>
+          <dependencies node="../condition[@n='normal_vector_6']" att1="state" v1="hidden" value="1"/>
+          <dependencies node="../condition[@n='normal_vector_6']" att1="state" v1="hidden" value="2"/>
+          <dependencies node="../condition[@n='normal_vector_6']" att1="state" v1="hidden" value="3"/>
+          <dependencies node="../condition[@n='normal_vector_6']" att1="state" v1="hidden" value="4"/>
+          <dependencies node="../condition[@n='normal_vector_6']" att1="state" v1="hidden" value="5"/>
+          <dependencies node="../condition[@n='normal_vector_6']" att1="state" v1="normal" value="6"/>
+          <dependencies node="../condition[@n='normal_vector_6']" att1="state" v1="normal" value="7"/>
+          <dependencies node="../condition[@n='normal_vector_6']" att1="state" v1="normal" value="8"/>
+          <dependencies node="../condition[@n='normal_vector_6']" att1="state" v1="normal" value="9"/>
+          <dependencies node="../condition[@n='normal_vector_6']" att1="state" v1="normal" value="10"/>
+          <dependencies node="../condition[@n='normal_vector_7']" att1="state" v1="hidden" value="none"/>
+          <dependencies node="../condition[@n='normal_vector_7']" att1="state" v1="hidden" value="1"/>
+          <dependencies node="../condition[@n='normal_vector_7']" att1="state" v1="hidden" value="2"/>
+          <dependencies node="../condition[@n='normal_vector_7']" att1="state" v1="hidden" value="3"/>
+          <dependencies node="../condition[@n='normal_vector_7']" att1="state" v1="hidden" value="4"/>
+          <dependencies node="../condition[@n='normal_vector_7']" att1="state" v1="hidden" value="5"/>
+          <dependencies node="../condition[@n='normal_vector_7']" att1="state" v1="hidden" value="6"/>
+          <dependencies node="../condition[@n='normal_vector_7']" att1="state" v1="normal" value="7"/>
+          <dependencies node="../condition[@n='normal_vector_7']" att1="state" v1="normal" value="8"/>
+          <dependencies node="../condition[@n='normal_vector_7']" att1="state" v1="normal" value="9"/>
+          <dependencies node="../condition[@n='normal_vector_7']" att1="state" v1="normal" value="10"/>
+          <dependencies node="../condition[@n='normal_vector_8']" att1="state" v1="hidden" value="none"/>
+          <dependencies node="../condition[@n='normal_vector_8']" att1="state" v1="hidden" value="1"/>
+          <dependencies node="../condition[@n='normal_vector_8']" att1="state" v1="hidden" value="2"/>
+          <dependencies node="../condition[@n='normal_vector_8']" att1="state" v1="hidden" value="3"/>
+          <dependencies node="../condition[@n='normal_vector_8']" att1="state" v1="hidden" value="4"/>
+          <dependencies node="../condition[@n='normal_vector_8']" att1="state" v1="hidden" value="5"/>
+          <dependencies node="../condition[@n='normal_vector_8']" att1="state" v1="hidden" value="6"/>
+          <dependencies node="../condition[@n='normal_vector_8']" att1="state" v1="hidden" value="7"/>
+          <dependencies node="../condition[@n='normal_vector_8']" att1="state" v1="normal" value="8"/>
+          <dependencies node="../condition[@n='normal_vector_8']" att1="state" v1="normal" value="9"/>
+          <dependencies node="../condition[@n='normal_vector_8']" att1="state" v1="normal" value="10"/>
+          <dependencies node="../condition[@n='normal_vector_9']" att1="state" v1="hidden" value="none"/>
+          <dependencies node="../condition[@n='normal_vector_9']" att1="state" v1="hidden" value="1"/>
+          <dependencies node="../condition[@n='normal_vector_9']" att1="state" v1="hidden" value="2"/>
+          <dependencies node="../condition[@n='normal_vector_9']" att1="state" v1="hidden" value="3"/>
+          <dependencies node="../condition[@n='normal_vector_9']" att1="state" v1="hidden" value="4"/>
+          <dependencies node="../condition[@n='normal_vector_9']" att1="state" v1="hidden" value="5"/>
+          <dependencies node="../condition[@n='normal_vector_9']" att1="state" v1="hidden" value="6"/>
+          <dependencies node="../condition[@n='normal_vector_9']" att1="state" v1="hidden" value="7"/>
+          <dependencies node="../condition[@n='normal_vector_9']" att1="state" v1="hidden" value="8"/>
+          <dependencies node="../condition[@n='normal_vector_9']" att1="state" v1="normal" value="9"/>
+          <dependencies node="../condition[@n='normal_vector_9']" att1="state" v1="normal" value="10"/>
+          <dependencies node="../condition[@n='normal_vector_10']" att1="state" v1="hidden" value="none"/>
+          <dependencies node="../condition[@n='normal_vector_10']" att1="state" v1="hidden" value="1"/>
+          <dependencies node="../condition[@n='normal_vector_10']" att1="state" v1="hidden" value="2"/>
+          <dependencies node="../condition[@n='normal_vector_10']" att1="state" v1="hidden" value="3"/>
+          <dependencies node="../condition[@n='normal_vector_10']" att1="state" v1="hidden" value="4"/>
+          <dependencies node="../condition[@n='normal_vector_10']" att1="state" v1="hidden" value="5"/>
+          <dependencies node="../condition[@n='normal_vector_10']" att1="state" v1="hidden" value="6"/>
+          <dependencies node="../condition[@n='normal_vector_10']" att1="state" v1="hidden" value="7"/>
+          <dependencies node="../condition[@n='normal_vector_10']" att1="state" v1="hidden" value="8"/>
+          <dependencies node="../condition[@n='normal_vector_10']" att1="state" v1="hidden" value="9"/>
+          <dependencies node="../condition[@n='normal_vector_10']" att1="state" v1="normal" value="10"/>
+        </value>
+        <condition n="normal_vector_1" pn="Normal vector 1" v="" state="hidden" ov="node" ovm="node" icon="elements.gif" help="Definition example: NodeID x y z (3D) or NodeID x y (2D)"/>
+        <condition n="normal_vector_2" pn="Normal vector 2" v="" state="hidden" ov="node" ovm="node" icon="elements.gif" help="Definition example: NodeID x y z (3D) or NodeID x y (2D)"/>
+        <condition n="normal_vector_3" pn="Normal vector 3" v="" state="hidden" ov="node" ovm="node" icon="elements.gif" help="Definition example: NodeID x y z (3D) or NodeID x y (2D)"/>
+        <condition n="normal_vector_4" pn="Normal vector 4" v="" state="hidden" ov="node" ovm="node" icon="elements.gif" help="Definition example: NodeID x y z (3D) or NodeID x y (2D)"/>
+        <condition n="normal_vector_5" pn="Normal vector 5" v="" state="hidden" ov="node" ovm="node" icon="elements.gif" help="Definition example: NodeID x y z (3D) or NodeID x y (2D)"/>
+        <condition n="normal_vector_6" pn="Normal vector 6" v="" state="hidden" ov="node" ovm="node" icon="elements.gif" help="Definition example: NodeID x y z (3D) or NodeID x y (2D)"/>
+        <condition n="normal_vector_7" pn="Normal vector 7" v="" state="hidden" ov="node" ovm="node" icon="elements.gif" help="Definition example: NodeID x y z (3D) or NodeID x y (2D)"/>
+        <condition n="normal_vector_8" pn="Normal vector 8" v="" state="hidden" ov="node" ovm="node" icon="elements.gif" help="Definition example: NodeID x y z (3D) or NodeID x y (2D)"/>
+        <condition n="normal_vector_9" pn="Normal vector 9" v="" state="hidden" ov="node" ovm="node" icon="elements.gif" help="Definition example: NodeID x y z (3D) or NodeID x y (2D)"/>
+        <condition n="normal_vector_10" pn="Normal vector 10" v="" state="hidden" ov="node" ovm="node" icon="elements.gif" help="Definition example: NodeID x y z (3D) or NodeID x y (2D)"/>
+      </container>
+      <condition n="Solid_Excavation" pn="Excavation" ov="[check_dim_surface_volume 2D:plane-strain 2D:Axissymmetric %W]" ovm="element" icon="icon_excavation" tree_state="close">
+        <value n="First_step" pn="First Step" v="0" help="When excavation starts"/>
+        <value n="Last_step" pn="Last Step" v="0" help="When excavation ends"/>
+      </condition>
+      <container n="Construction" pn="Construction" icon="icon_construction" tree_state="close">
+        <condition n="Solid_Construction" pn="Construction stages" ov="[check_dim_surface_volume 2D:plane-strain 2D:Axissymmetric %W]" ovm="element" icon="icon_construction">
+          <value n="First_step" pn="First Step" v="0" help="When construction starts"/>
+          <value n="Last_step" pn="Last Step" v="0" help="When construction ends"/>
+        </condition>
+        <value n="Fill_empty_elements" pn="Fill empty elements" icon="icon_construction" values="do not fill empty elements,fill empty elements" v="do not fill empty elements"/>
+      </container>
+      <condition n="Reaction_forces" pn="Reaction Forces" icon="icon_reactionforce" ov="[check_dim_line_surface 2D:plane-strain 2D:Axissymmetric %W]" ovm="face_element" tree_state="close">
+        <value n="surface_identifier" pn="surface identifier" v="" state="[check_dim 3D 3D:Axissymmetric %W]"/>
+        <value n="line_identifier" pn="line identifier" v="" state="[check_dim 2D:plane-strain 2D:Axissymmetric %W]"/>
+      </condition>
+      <container n="Moving_mesh" pn="Moving Mesh" icon="icon_movingmesh" tree_state="close">
+        <condition n="Extending_mesh" pn="Extending mesh" ov="point" ovm="node" icon="icon_movingmesh" help="assign corner nodes of extending mesh"/>
+        <condition n="Compressing_mesh" pn="Compressing mesh" ov="point" ovm="node" icon="icon_movingmesh" help="assign corner nodes of compressing mesh"/>
+        <condition n="Moving_mesh" pn="Moving mesh" ov="point" ovm="node" icon="icon_movingmesh" help="assign corner nodes of moving mesh">
+          <value n="Mm_dir" pn="Direction type" v="x-direction" help="Select moving mesh direction" values="x-direction,y-direction,z-direction"/>
+        </condition>
+        <value n="Reference_material" pn="Moving mesh reference material" editable="0" icon="icon_movingmesh" help="Choose a material from the database" values="[Anura3D::GetMaterialsList %W]" v="specify">
+          <edit_command n="Edit materials" pn="Edit materials" icon="icon_material" proc="Anura3D::EditDatabase %W %DICT %BC"/>
+        </value>
+      </container>
+      <container n="Calculation_Data" pn="Calculation Data" icon="calculate.png" open_window="0" tree_state="open">
+        <value n="COMPUTATION_METHOD" pn="COMPUTATION METHOD" icon="calculate.png" values="MPM - material point integration,MPM - mixed integration,standard FEM,Updated Lagrangian FEM" v="MPM - mixed integration" tree_state="close"/>
+        <container n="CALCULATION_STEP_DATA" pn="CALCULATION STEP DATA" icon="calculate.png" tree_state="open">
+          <value n="number_of_calculation_steps" pn="number of calculation steps [-]" v="21" state="normal" tree_state="close"/>
+          <value n="time_per_calculation_step" pn="time per calculation step [s]" v="1" state="normal" tree_state="close"/>
+          <value n="Courant_number" pn="Courant number [-]" v="0.98" state="normal" tree_state="close"/>
+        </container>
+        <value n="GRAVITY_LOAD" pn="GRAVITY LOAD" icon="calculate.png" values="do not apply gravity load,apply gravity load - linear,apply gravity load - stepwise" v="apply gravity load - stepwise" actualize_tree="1" tree_state="close">
+          <dependencies node="../value[@n='gravity_multiplier_initial']" att1="state" v1="normal" value="apply gravity load - linear"/>
+          <dependencies node="../value[@n='gravity_multiplier_initial']" att1="state" v1="normal" value="apply gravity load - stepwise"/>
+          <dependencies node="../value[@n='gravity_multiplier_initial']" att1="state" v1="hidden" value="do not apply gravity load"/>
+          <dependencies node="../value[@n='gravity_multiplier_final']" att1="state" v1="normal" value="apply gravity load - linear"/>
+          <dependencies node="../value[@n='gravity_multiplier_final']" att1="state" v1="normal" value="apply gravity load - stepwise"/>
+          <dependencies node="../value[@n='gravity_multiplier_final']" att1="state" v1="hidden" value="do not apply gravity load"/>
+        </value>
+        <value n="gravity_multiplier_initial" pn="gravity multiplier initial [-]" v="1.0" state="normal" tree_state="close"/>
+        <value n="gravity_multiplier_final" pn="gravity multiplier final [-]" v="1.0" state="normal" tree_state="close"/>
+        <value n="SOLID_TRACTION_A" pn="SOLID TRACTION A" icon="calculate.png" values="do not apply solid traction,apply solid traction - linear,apply solid traction - stepwise" v="do not apply solid traction" actualize_tree="1" tree_state="close">
+          <dependencies node="../value[@n='solid_traction_A_multiplier_initial']" att1="state" v1="normal" value="apply solid traction - linear"/>
+          <dependencies node="../value[@n='solid_traction_A_multiplier_initial']" att1="state" v1="normal" value="apply solid traction - stepwise"/>
+          <dependencies node="../value[@n='solid_traction_A_multiplier_initial']" att1="state" v1="hidden" value="do not apply solid traction"/>
+          <dependencies node="../value[@n='solid_traction_A_multiplier_final']" att1="state" v1="normal" value="apply solid traction - linear"/>
+          <dependencies node="../value[@n='solid_traction_A_multiplier_final']" att1="state" v1="normal" value="apply solid traction - stepwise"/>
+          <dependencies node="../value[@n='solid_traction_A_multiplier_final']" att1="state" v1="hidden" value="do not apply solid traction"/>
+        </value>
+        <value n="solid_traction_A_multiplier_initial" pn="solid traction A multiplier initial [-]" v="0.0" state="hidden"/>
+        <value n="solid_traction_A_multiplier_final" pn="solid_traction A multiplier final [-]" v="1.0" state="hidden"/>
+        <value n="SOLID_TRACTION_B" pn="SOLID TRACTION B" icon="calculate.png" values="do not apply solid traction,apply solid traction - linear,apply solid traction - stepwise" v="do not apply solid traction" actualize_tree="1" tree_state="close">
+          <dependencies node="../value[@n='solid_traction_B_multiplier_initial']" att1="state" v1="normal" value="apply solid traction - linear"/>
+          <dependencies node="../value[@n='solid_traction_B_multiplier_initial']" att1="state" v1="normal" value="apply solid traction - stepwise"/>
+          <dependencies node="../value[@n='solid_traction_B_multiplier_initial']" att1="state" v1="hidden" value="do not apply solid traction"/>
+          <dependencies node="../value[@n='solid_traction_B_multiplier_final']" att1="state" v1="normal" value="apply solid traction - linear"/>
+          <dependencies node="../value[@n='solid_traction_B_multiplier_final']" att1="state" v1="normal" value="apply solid traction - stepwise"/>
+          <dependencies node="../value[@n='solid_traction_B_multiplier_final']" att1="state" v1="hidden" value="do not apply solid traction"/>
+        </value>
+        <value n="solid_traction_B_multiplier_initial" pn="solid traction B multiplier initial [-]" v="0.0" state="hidden"/>
+        <value n="solid_traction_B_multiplier_final" pn="solid_traction B multiplier final [-]" v="1.0" state="hidden"/>
+        <value n="LIQUID_PRESSURE_A" pn="LIQUID PRESSURE A" icon="calculate.png" values="do not apply liquid pressure,apply liquid pressure - linear,apply liquid pressure - stepwise" v="apply liquid pressure - stepwise" actualize_tree="1" tree_state="close">
+          <dependencies node="../value[@n='liquid_pressure_A_multiplier_initial']" att1="state" v1="normal" value="apply liquid pressure - linear"/>
+          <dependencies node="../value[@n='liquid_pressure_A_multiplier_initial']" att1="state" v1="normal" value="apply liquid pressure - stepwise"/>
+          <dependencies node="../value[@n='liquid_pressure_A_multiplier_initial']" att1="state" v1="hidden" value="do not apply liquid pressure"/>
+          <dependencies node="../value[@n='liquid_pressure_A_multiplier_final']" att1="state" v1="normal" value="apply liquid pressure - linear"/>
+          <dependencies node="../value[@n='liquid_pressure_A_multiplier_final']" att1="state" v1="normal" value="apply liquid pressure - stepwise"/>
+          <dependencies node="../value[@n='liquid_pressure_A_multiplier_final']" att1="state" v1="hidden" value="do not apply liquid pressure"/>
+        </value>
+        <value n="liquid_pressure_A_multiplier_initial" pn="liquid pressure A multiplier initial [-]" v="1" state="normal" tree_state="close"/>
+        <value n="liquid_pressure_A_multiplier_final" pn="liquid pressure A multiplier final [-]" v="1.0" state="normal" tree_state="close"/>
+        <value n="LIQUID_PRESSURE_B" pn="LIQUID PRESSURE B" icon="calculate.png" values="do not apply liquid pressure,apply liquid pressure - linear,apply liquid pressure - stepwise" v="do not apply liquid pressure" actualize_tree="1" tree_state="close">
+          <dependencies node="../value[@n='liquid_pressure_B_multiplier_initial']" att1="state" v1="normal" value="apply liquid pressure - linear"/>
+          <dependencies node="../value[@n='liquid_pressure_B_multiplier_initial']" att1="state" v1="normal" value="apply liquid pressure - stepwise"/>
+          <dependencies node="../value[@n='liquid_pressure_B_multiplier_initial']" att1="state" v1="hidden" value="do not apply liquid pressure"/>
+          <dependencies node="../value[@n='liquid_pressure_B_multiplier_final']" att1="state" v1="normal" value="apply liquid pressure - linear"/>
+          <dependencies node="../value[@n='liquid_pressure_B_multiplier_final']" att1="state" v1="normal" value="apply liquid pressure - stepwise"/>
+          <dependencies node="../value[@n='liquid_pressure_B_multiplier_final']" att1="state" v1="hidden" value="do not apply liquid pressure"/>
+        </value>
+        <value n="liquid_pressure_B_multiplier_initial" pn="liquid pressure B multiplier initial [-]" v="0.0" state="hidden"/>
+        <value n="liquid_pressure_B_multiplier_final" pn="liquid pressure B multiplier final [-]" v="1.0" state="hidden"/>
+        <value n="PRESCRIBED_VELOCITY" pn="PRESCRIBED VELOCITY" icon="calculate.png" values="do not apply prescribed velocity,apply prescribed velocity - linear,apply prescribed velocity - stepwise" v="do not apply prescribed velocity" actualize_tree="1" tree_state="close">
+          <dependencies node="../value[@n='velocity_multiplier_initial']" att1="state" v1="normal" value="apply prescribed velocity - linear"/>
+          <dependencies node="../value[@n='velocity_multiplier_initial']" att1="state" v1="normal" value="apply prescribed velocity - stepwise"/>
+          <dependencies node="../value[@n='velocity_multiplier_initial']" att1="state" v1="hidden" value="do not apply prescribed velocity"/>
+          <dependencies node="../value[@n='velocity_multiplier_final']" att1="state" v1="normal" value="apply prescribed velocity - linear"/>
+          <dependencies node="../value[@n='velocity_multiplier_final']" att1="state" v1="normal" value="apply prescribed velocity - stepwise"/>
+          <dependencies node="../value[@n='velocity_multiplier_final']" att1="state" v1="hidden" value="do not apply prescribed velocity"/>
+        </value>
+        <value n="velocity_multiplier_initial" pn="velocity multiplier initial [-]" v="0.0" state="hidden"/>
+        <value n="velocity_multiplier_final" pn="velocity multiplier final [-]" v="1.0" state="hidden"/>
+        <value n="HYDRAULIC_HEAD" pn="APPLY HYDRAULIC HEAD" icon="calculate.png" v="[apply_hydraulic_head %W]" state="hidden"/>
+        <value n="SEEPAGE_FACE" pn="APPLY SEEPAGE FACE" icon="calculate.png" v="[apply_seepage_face %W]" state="hidden"/>
+        <value n="INFILTRATION" pn="APPLY INFILTRATION" icon="calculate.png" v="[apply_infiltration %W]" state="hidden"/>
+        <value n="QUASI-STATIC_CONVERGENCE" pn="QUASI-STATIC CONVERGENCE" icon="calculate.png" values="do not apply convergence criteria,apply convergence criteria" v="do not apply convergence criteria" actualize_tree="1" tree_state="close">
+          <dependencies node="../value[@n='tolerated_error_solid_energy']" att1="state" v1="normal" value="apply convergence criteria"/>
+          <dependencies node="../value[@n='tolerated_error_solid_energy']" att1="state" v1="hidden" value="do not apply convergence criteria"/>
+          <dependencies node="../value[@n='tolerated_error_solid_force']" att1="state" v1="normal" value="apply convergence criteria"/>
+          <dependencies node="../value[@n='tolerated_error_solid_force']" att1="state" v1="hidden" value="do not apply convergence criteria"/>
+          <dependencies node="../value[@n='tolerated_error_liquid_energy']" att1="state" v1="normal" value="apply convergence criteria"/>
+          <dependencies node="../value[@n='tolerated_error_liquid_energy']" att1="state" v1="hidden" value="do not apply convergence criteria"/>
+          <dependencies node="../value[@n='tolerated_error_liquid_force']" att1="state" v1="normal" value="apply convergence criteria"/>
+          <dependencies node="../value[@n='tolerated_error_liquid_force']" att1="state" v1="hidden" value="do not apply convergence criteria"/>
+          <dependencies node="../value[@n='maximum_time_steps']" att1="state" v1="normal" value="apply convergence criteria"/>
+          <dependencies node="../value[@n='maximum_time_steps']" att1="state" v1="hidden" value="do not apply convergence criteria"/>
+        </value>
+        <value n="tolerated_error_solid_energy" pn="tolerated error solid energy [-]" v="0.01" state="hidden" tree_state="close"/>
+        <value n="tolerated_error_solid_force" pn="tolerated error solid force [-]" v="0.01" state="hidden" tree_state="close"/>
+        <value n="tolerated_error_liquid_energy" pn="tolerated error liquid energy [-]" v="0.01" state="hidden" tree_state="close"/>
+        <value n="tolerated_error_liquid_force" pn="tolerated error liquid force [-]" v="0.01" state="hidden" tree_state="close"/>
+        <value n="maximum_time_steps" pn="maximum time steps [-]" v="2500" state="hidden" tree_state="close"/>
+        <value n="MASS_SCALING" pn="MASS SCALING" icon="calculate.png" values="do not apply mass scaling,apply mass scaling" v="apply mass scaling" actualize_tree="1" tree_state="close">
+          <dependencies node="../value[@n='mass_scaling_factor']" att1="state" v1="normal" value="apply mass scaling"/>
+          <dependencies node="../value[@n='mass_scaling_factor']" att1="state" v1="hidden" value="do not apply mass scaling"/>
+        </value>
+        <value n="mass_scaling_factor" pn="mass scaling factor [-]" v="80" state="normal" tree_state="close"/>
+        <value n="HOMOGENEOUS_LOCAL_DAMPING" pn="HOMOGENEOUS LOCAL DAMPING" icon="calculate.png" values="do not apply homogeneous local damping,apply homogeneous local damping" v="apply homogeneous local damping" actualize_tree="1" tree_state="close">
+          <dependencies node="../value[@n='local_damping_coefficient']" att1="state" v1="normal" value="apply homogeneous local damping"/>
+          <dependencies node="../value[@n='local_damping_coefficient']" att1="state" v1="hidden" value="do not apply homogeneous local damping"/>
+        </value>
+        <value n="local_damping_coefficient" pn="local damping coefficient [-]" v="0.05" state="normal" tree_state="close"/>
+        <value n="BULK_VISCOSITY_DAMPING" pn="BULK VISCOSITY DAMPING" icon="calculate.png" values="do not apply viscosity damping,apply viscosity damping" v="do not apply viscosity damping" actualize_tree="1" tree_state="close">
+          <dependencies node="../value[@n='linear_coefficient']" att1="state" v1="normal" value="apply viscosity damping"/>
+          <dependencies node="../value[@n='linear_coefficient']" att1="state" v1="hidden" value="do not apply viscosity damping"/>
+          <dependencies node="../value[@n='quadratic_coefficient']" att1="state" v1="normal" value="apply viscosity damping"/>
+          <dependencies node="../value[@n='quadratic_coefficient']" att1="state" v1="hidden" value="do not apply viscosity damping"/>
+        </value>
+        <value n="linear_coefficient" pn="linear coefficient [-]" v="0.06" state="hidden"/>
+        <value n="quadratic_coefficient" pn="quadratic coefficient [-]" v="1.2" state="hidden"/>
+        <value n="STRAIN_SMOOTHING" pn="STRAIN SMOOTHING" icon="calculate.png" values="do not apply strain smoothing,apply strain smoothing" v="apply strain smoothing" tree_state="close"/>
+        <value n="LIQUID_PRESSURE_INCREMENT_SMOOTHING" icon="calculate.png" pn="LIQUID PRESSURE INCREMENT SMOOTHING" values="do not apply liquid pressure increment smoothing,apply liquid pressure increment smoothing" v="apply liquid pressure increment smoothing" tree_state="active,selected,close"/>
+        <value n="FIX_SOLID_SKELETON" pn="FIX SOLID SKELETON" icon="calculate.png" values="Solid Skeleton Free,Solid Skeleton Fixed" v="Solid Skeleton Free" tree_state="close"/>
+        <value n="CONTACT" pn="CONTACT" icon="calculate.png" v="[apply_contact %W]" state="hidden"/>
+        <value n="INITIAL_VELOCITY" pn="INITIAL VELOCITY" icon="calculate.png" state="hidden" v="[apply_initial_velo %W]" help="Note: To be defined in 'Initial_Conditions'"/>
+        <value n="POROSITY_UPDATE" pn="POROSITY UPDATE" icon="calculate.png" values="do not apply porosity update,apply porosity update" v="do not apply porosity update" tree_state="close"/>
+        <value n="RESET_DISPLACEMENTS" pn="RESET DISPLACEMENTS" icon="calculate.png" values="do not reset displacements,reset displacements" v="do not reset displacements" state="[activate_not_initial_stage %W]"/>
+        <value n="SUBMERGED_CALCULATION" pn="SUBMERGED CALCULATION" icon="calculate.png" values="do not apply submerged calculation,apply submerged calculation" v="do not apply submerged calculation" actualize_tree="1" tree_state="close">
+          <dependencies node="../value[@n='number_of_initialisation_steps']" att1="state" v1="normal" value="apply submerged calculation"/>
+          <dependencies node="../value[@n='number_of_initialisation_steps']" att1="state" v1="hidden" value="do not apply submerged calculation"/>
+        </value>
+        <value n="number_of_initialisation_steps" pn="number of initialisation steps [-]" v="1" state="hidden"/>
+        <value n="OBJECTIVE_STRESS" pn="OBJECTIVE STRESS" icon="calculate.png" values="do not apply objective stress,apply objective stress" v="do not apply objective stress" tree_state="close"/>
+        <value n="degree_of_filling" pn="degree of filling [-]" icon="calculate.png" v="0.9" tree_state="close"/>
+        <value n="DOUBLE-POINT_FORMULATION" pn="DOUBLE-POINT FORMULATION" icon="calculate.png" values="do not define additional parameters,define additional parameters" v="do not define additional parameters" state="[check_points Double_point %W]" actualize_tree="1">
+          <dependencies node="../value[@n='maximum_porosity']" att1="state" v1="normal" value="define additional parameters"/>
+          <dependencies node="../value[@n='maximum_porosity']" att1="state" v1="hidden" value="do not define additional parameters"/>
+          <dependencies node="../value[@n='Ergun_constants']" att1="state" v1="normal" value="define additional parameters"/>
+          <dependencies node="../value[@n='Ergun_constants']" att1="state" v1="hidden" value="do not define additional parameters"/>
+          <dependencies node="../value[@n='permeability_definition']" att1="state" v1="normal" value="define additional parameters"/>
+          <dependencies node="../value[@n='permeability_definition']" att1="state" v1="hidden" value="do not define additional parameters"/>
+          <dependencies node="../value[@n='elevation_liquid_surface_for_K0']" att1="state" v1="normal" value="define additional parameters"/>
+          <dependencies node="../value[@n='elevation_liquid_surface_for_K0']" att1="state" v1="hidden" value="do not define additional parameters"/>
+          <dependencies node="../value[@n='strain_smoothing_liquid']" att1="state" v1="normal" value="define additional parameters"/>
+          <dependencies node="../value[@n='strain_smoothing_liquid']" att1="state" v1="hidden" value="do not define additional parameters"/>
+          <dependencies node="../value[@n='no_tensile_stress_liquid']" att1="state" v1="normal" value="define additional parameters"/>
+          <dependencies node="../value[@n='no_tensile_stress_liquid']" att1="state" v1="hidden" value="do not define additional parameters"/>
+          <dependencies node="../value[@n='detect_free_surface']" att1="state" v1="normal" value="define additional parameters"/>
+          <dependencies node="../value[@n='detect_free_surface']" att1="state" v1="hidden" value="do not define additional parameters"/>
+        </value>
+        <value n="maximum_porosity" pn="maximum porosity [-]" v="0.0" state="hidden"/>
+        <value n="Ergun_constants" pn="Ergun constants a [-] and b [-]" v="150.0  1.75" state="hidden"/>
+        <value n="permeability_definition" pn="permeability definition" values="please choose,constant permeability,update permeability Darcy,update permeability Ergun" v="please choose" state="hidden">
+          <dependencies node="../value[@n='intrinsic_permeability']" att1="state" v1="hidden" value="please choose"/>
+          <dependencies node="../value[@n='intrinsic_permeability']" att1="state" v1="normal" value="constant permeability"/>
+          <dependencies node="../value[@n='intrinsic_permeability']" att1="state" v1="hidden" value="update permeability Darcy"/>
+          <dependencies node="../value[@n='intrinsic_permeability']" att1="state" v1="hidden" value="update permeability Ergun"/>
+          <dependencies node="../value[@n='grain_size_diameter']" att1="state" v1="hidden" value="please choose"/>
+          <dependencies node="../value[@n='grain_size_diameter']" att1="state" v1="hidden" value="constant permeability"/>
+          <dependencies node="../value[@n='grain_size_diameter']" att1="state" v1="normal" value="update permeability Darcy"/>
+          <dependencies node="../value[@n='grain_size_diameter']" att1="state" v1="normal" value="update permeability Ergun"/>
+        </value>
+        <value n="intrinsic_permeability" pn="intrinsic permeability [m2]" v="0.0" state="hidden"/>
+        <value n="grain_size_diameter" pn="grain size diameter [m]" v="1.0e-3  2.0e-3" state="hidden"/>
+        <value n="elevation_liquid_surface_for_K0" pn="elevation liquid surface for K0 [m]" v="0.0" state="hidden"/>
+        <value n="strain_smoothing_liquid" pn="strain smoothing liquid" v="0" state="hidden"/>
+        <value n="no_tensile_stress_liquid" pn="no tensile stress liquid" v="0" state="hidden"/>
+        <value n="detect_free_surface" pn="detect free surface" v="1  0.8" state="hidden"/>
+      </container>
+      <container n="results" pn="Results output" icon="results.png" tree_state="close">
+        <container n="output" pn="[post_visualization_software %W]" icon="results.png" open_window="0" state="normal">
+          <value n="calc_steps_between_outputs" pn="Calculation steps between outputs" v="1" state="normal"/>
+          <container n="output_variables" pn="Output variables" icon="results.png">
+            <container n="scalar" pn="Scalar" icon="results.png">
+              <container n="general" pn="General" icon="results.png">
+                <value n="mass_mixture" pn="Mass mixture" v="1" values="1,0" state="normal"/>
+                <value n="weight_mixture" pn="Weight mixture" v="1" values="1,0" state="normal"/>
+                <value n="porosity" pn="Porosity" v="1" values="1,0" state="normal"/>
+                <value n="mean_effective_stress" pn="Mean effective stress" v="1" values="1,0" state="normal"/>
+                <value n="deviatoric_stress" pn="Deviatoric stress" v="1" values="1,0" state="normal"/>
+                <value n="deviatoric_strain" pn="Deviatoric strain" v="1" values="1,0" state="normal"/>
+                <value n="degree_of_saturation" pn="Degree of saturation" v="1" values="1,0" state="normal"/>
+                <value n="state_variables" pn="State variables" v="1" values="1,0" state="normal"/>
+                <value n="damping" pn="Damping" v="1" values="1,0" state="normal"/>
+              </container>
+              <container n="solid" pn="Solid" icon="results.png">
+                <value n="mass_solid" pn="Mass solid" v="1" values="1,0" state="normal"/>
+                <value n="weight_solid" pn="Weight solid" v="1" values="1,0" state="normal"/>
+                <value n="volumetric_strain_solid" pn="Volumetric strain solid" v="1" values="1,0" state="normal"/>
+              </container>
+              <container n="liquid" pn="Liquid" icon="results.png">
+                <value n="mass_liquid" pn="Mass liquid" v="1" values="1,0" state="normal"/>
+                <value n="weight_liquid" pn="Weight liquid" v="1" values="1,0" state="normal"/>
+                <value n="volumetric_strain_liquid" pn="Volumetric strain liquid" v="1" values="1,0" state="normal"/>
+                <value n="pressure_liquid" pn="Pressure liquid" v="1" values="1,0" state="normal"/>
+              </container>
+              <container n="gas" pn="Gas" icon="results.png">
+                <value n="mass_gas" pn="Mass gas" v="1" values="1,0" state="normal"/>
+                <value n="weight_gas" pn="Weight gas" v="1" values="1,0" state="normal"/>
+                <value n="pressure_gas" pn="Pressure gas" v="1" values="1,0" state="normal"/>
+                <value n="volumetric_strain_gas" pn="Volumetric strain gas" v="1" values="1,0" state="normal"/>
+              </container>
+            </container>
+            <container n="vector" pn="Vector" icon="results.png">
+              <container n="general" pn="General" icon="results.png">
+                <value n="global_pos" pn="Global position" v="1" values="1,0" state="normal"/>
+                <value n="local_pos" pn="Local position" v="1" values="1,0" state="normal"/>
+                <value n="body_force_mixture" pn="Body force mixture" v="1" values="1,0" state="normal"/>
+              </container>
+              <container n="solid" pn="Solid" icon="results.png">
+                <value n="body_force_solid" pn="Body force solid" v="1" values="1,0" state="normal"/>
+                <value n="external_force_solid" pn="External force solid" v="1" values="1,0" state="normal"/>
+                <value n="acceleration_solid" pn="Acceleration solid" v="1" values="1,0" state="normal"/>
+                <value n="velocity_solid" pn="Velocity solid" v="1" values="1,0" state="normal"/>
+                <value n="disp_solid" pn="Displacement solid" v="1" values="1,0" state="normal"/>
+              </container>
+              <container n="liquid" pn="Liquid" icon="results.png">
+                <value n="body_force_liquid" pn="Body force liquid" v="1" values="1,0" state="normal"/>
+                <value n="external_force_liquid" pn="External force liquid" v="1" values="1,0" state="normal"/>
+                <value n="velocity_liquid" pn="Velocity liquid" v="1" values="1,0" state="normal"/>
+                <value n="disp_liquid" pn="Displacement liquid" v="1" values="1,0" state="normal"/>
+              </container>
+              <container n="gas" pn="Gas" icon="results.png">
+                <value n="body_force_gas" pn="Body force liquid" v="1" values="1,0" state="normal"/>
+                <value n="external_force_gas" pn="External force liquid" v="1" values="1,0" state="normal"/>
+                <value n="velocity_gas" pn="Velocity liquid" v="1" values="1,0" state="normal"/>
+                <value n="disp_gas" pn="Displacement liquid" v="1" values="1,0" state="normal"/>
+              </container>
+            </container>
+            <container n="tensor" pn="Tensor" icon="results.png">
+              <value n="total_stress" pn="Total stress" v="1" values="1,0" state="normal"/>
+              <value n="effective_stress" pn="Effective stress" v="1" values="1,0" state="normal"/>
+              <value n="strain" pn="Strain" v="1" values="1,0" state="normal"/>
+            </container>
+          </container>
+        </container>
+        <container n="elements_for_mat_point_output" pn="Material Point Output" ov="element" ovm="element" icon="elements.gif" state="normal">
+          <condition n="select_elements_for_mat_point_output" pn="Select elements for MPs output" ov="element" ovm="element" icon="elements.gif" state="[activate_initial_stage %W %dict %BC]"/>
+          <value n="number_output_mat_point" pn="Number of output MPs per element" values="0,1,2,3" v="0" state="[activate_initial_stage %W %dict %BC]"/>
+          <value n="time_between_outputs" pn="Time between outputs [s]" v="0.0" state="normal"/>
+        </container>
+      </container>
+    </blockdata>
+  </container>
+  <groups>
+    <group n="2D Single-point Auto1" onoff="1" color="#ff00ff" type=""/>
+    <group n="Soil Surface Auto1" onoff="1" color="#008000" type=""/>
+    <group n="Solid Fixities Auto1" onoff="1" color="#ffff00" type=""/>
+    <group n="Solid Fixities Auto2" onoff="1" color="#ffa500" type=""/>
+    <group n="Liquid Fixities Auto1" onoff="1" color="#cdc0b0" type=""/>
+    <group n="Liquid Fixities Auto2" onoff="1" color="#76eec6" type=""/>
+    <group n="Liquid pressure Auto1" onoff="1" color="#8a2be2" type=""/>
+    <group n="Select water table profile Auto1" onoff="1" color="#8b2323" type=""/>
+    <group n="Solid Fixities Auto4" onoff="1" color="#ee6a50" type=""/>
+    <group n="2D Single-point Auto2" onoff="1" color="magenta" type=""/>
+    <group n="Soil Surface Auto2" onoff="1" color="green" type=""/>
+    <group n="Solid Fixities Auto5" onoff="1" color="yellow" type=""/>
+    <group n="Solid Fixities Auto6" onoff="1" color="orange" type=""/>
+    <group n="Liquid Fixities Auto3" onoff="1" color="pink" type=""/>
+    <group n="Liquid Fixities Auto4" onoff="1" color="AntiqueWhite3" type=""/>
+    <group n="Liquid pressure Auto2" onoff="1" color="aquamarine2" type=""/>
+  </groups>
+  <blockdata n="Internal data">
+    <value n="spd_file" v="D:/MPM_calculations/Testrelease2026/RainfallInfiltration_mapping.gid/RainfallInfiltration_mapping.spd"/>
+  </blockdata>
+  <display_options frame_width="549" is_frame_open="1" view_conditions_search="0" conditions_search_values=""/>
+  <global_preferences>
+    <units/>
+    <tree_preferences/>
+  </global_preferences>
+</Anura3D_data>
+
