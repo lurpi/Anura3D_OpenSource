@@ -326,6 +326,7 @@
         integer(INTEGER_TYPE), parameter :: FEEDBACK_LEVEL_ALWAYS  = huge(FEEDBACK_LEVEL_RELEASE)
         
         ! Anura3D file versions
+        character(len=64), parameter :: Anura3D_v2026 = '### Anura3D_2026 ###' ! internal release/debug
         character(len=64), parameter :: Anura3D_v2025 = '### Anura3D_2025 ###' ! internal release/debug
         character(len=64), parameter :: Anura3D_v2024 = '### Anura3D_2024 ###' ! internal release/debug
         character(len=64), parameter :: Anura3D_v2023 = '### Anura3D_2023 ###' ! internal release/debug

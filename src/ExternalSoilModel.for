@@ -182,7 +182,7 @@ implicit none
     cmname = UMAT_MOHR_COULOMB_STANDARD
     endif          
     ! initialise UMAT
-    if ((CalParams%CPSversion==Anura3D_v2024).or.(CalParams%CPSversion==Anura3D_v2025)) then
+    if ((CalParams%CPSversion==Anura3D_v2024).or.(CalParams%CPSversion==Anura3D_v2025).or.(CalParams%CPSversion==Anura3D_v2026)) then
     ESM => MatParams(IDSet)%ESM_POINTER
     else
     !ESM = GetProcAddress(MatParams(IDSet)%SoilModelDLLHandle) 

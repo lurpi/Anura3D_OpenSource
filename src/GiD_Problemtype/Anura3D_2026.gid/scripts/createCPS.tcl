@@ -12,7 +12,7 @@ proc Anura3D::WriteCalculationFile_CPS { filename stageNode icount_stage total_t
     set root [$::gid_groups_conds::doc documentElement] ;# xml document to get some tree data
     set current_xml_root $root
 
-    GiD_WriteCalculationFile puts "### Anura3D_2025 ###"
+    GiD_WriteCalculationFile puts "### Anura3D_2026 ###"
     
     # STAGE NUMBER
     GiD_WriteCalculationFile puts {$$STAGE}

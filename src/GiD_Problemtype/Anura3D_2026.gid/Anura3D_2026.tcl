@@ -17,14 +17,14 @@ proc InitGIDProject { dir } {
     global ProgramName VersionNumber Priv
     
     set _dir $dir
-    set anura_version "Anura3D v2025"
+    set anura_version "Anura3D v2026"
     set GiDVersionRequired "14.0"
 
     Anura3D::SetDir $dir ;#store to use it later
     Anura3D::LoadScripts
     GidUtils::OpenWindow CUSTOMLIB
     
-    dom parse [tDOM::xmlReadFile [file join $dir Anura3D_2025.xml]] doc
+    dom parse [tDOM::xmlReadFile [file join $dir Anura3D_2026.xml]] doc
     set ProgramName [$doc selectNodes string(Infoproblemtype/Program/Name)]
     set VersionNumber [$doc selectNodes string(Infoproblemtype/Program/Version)]
        
@@ -85,7 +85,7 @@ proc EndGIDProject { } {
 namespace eval Anura3D {
 }
 
-namespace eval ANURA3D_2025 {
+namespace eval ANURA3D_2026 {
     variable problemtype_dir
 }
 
@@ -102,7 +102,7 @@ proc Anura3D::GetDir { } {
 proc Anura3D::Tutorial { } {
 
     global _dir
-    set TestDoc [file join $_dir doc "TutorialManual_2025.pdf"]
+    set TestDoc [file join $_dir doc "TutorialManual_2026.pdf"]
     eval exec [auto_execok start] \"\" [list $TestDoc]
 
 }
@@ -151,13 +151,13 @@ proc Anura3D::ViewProcessInfo {} {
 proc Anura3D::About { } {
 
     snit_messageBox -parent .gid -title "Anura3D - About" \
-        -message "Anura3D Version 2025\n\nFor more information about Anura3D, check the website\n\nhttp://www.anura3D.com" -icon info
+        -message "Anura3D Version 2026\n\nFor more information about Anura3D, check the website\n\nhttp://www.anura3D.com" -icon info
 
 }
 
 proc Anura3D::Disclaimer { } {
 
-    set answer [snit_messageBox -parent .gid -title "Anura3D - Disclaimer" -message "Copyright (C) 2020  Members of the Anura3D MPM Research Community
+    set answer [snit_messageBox -parent .gid -title "Anura3D - Disclaimer" -message "Copyright (C) 2026  Members of the Anura3D MPM Research Community
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
@@ -273,7 +273,7 @@ proc Anura3D::Calculate { args } {
             
             file copy -force [file join $dir dll zlib.dll] [file join $A3D_folder zlib.dll]
             file copy -force [file join $dir dll zlib.dll] [file join $A3D_folder libiomp5md.dll]
-            file copy -force [file join $dir exec Anura3D_2025.exe] [file join $A3D_folder Anura3D_2025.exe]
+            file copy -force [file join $dir exec Anura3D_2026.exe] [file join $A3D_folder Anura3D_2026.exe]
             
             # For each stage              
             set xp {container[@n='stages']/blockdata[@n='stage']} 
@@ -465,7 +465,7 @@ proc Anura3D::Calculate { args } {
                     # Write OPD_stage$number file with results output data
 					Anura3D::WriteCalculationFile_OPD $stageNode $projectPath $projectName $icount_stage   
 					
-                    if {![file exists [file join $Priv(problemtypedir) exec Anura3D_2025.exe]]} {
+                    if {![file exists [file join $Priv(problemtypedir) exec Anura3D_2026.exe]]} {
                         snit_messageBox -parent .gid \
                             -message "This distribution does not contain the executable (.exe)"
                         return
@@ -483,7 +483,7 @@ proc Anura3D::Calculate { args } {
                         [file nativename $dir] [file nativename $A3D_folder] 
                         
                     # Call .exe executable                    
-                    set pid [exec [file join $A3D_folder Anura3D_2025.exe] [file join $A3D_folder $projectName] PAUSE &]                      
+                    set pid [exec [file join $A3D_folder Anura3D_2026.exe] [file join $A3D_folder $projectName] PAUSE &]                      
                     
                     while 1 {                      
                         if { ![isalive $pid] } { break }

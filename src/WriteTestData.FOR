@@ -144,7 +144,7 @@
             ! Open files for output of particle data
             FileVersion = CalParams%CPSversion
             
-            if(FileVersion /= Anura3D_v2025) then
+            if((FileVersion /= Anura3D_v2025) .and. (FileVersion /= Anura3D_v2026)) then
                 CalParams%ParticleFileCounter = CalParams%ParticleFileCounter + 1
                 call GetStepExt(CalParams%ParticleFileCounter, XXXCounter)
                 do I = 1, CalParams%OutputNumberParticles
@@ -177,7 +177,7 @@
                 end do
             end if
             
-            if (FileVersion == Anura3D_v2025) then
+            if ((FileVersion == Anura3D_v2025) .or. (FileVersion == Anura3D_v2026)) then
                 CalParams%ParticleFileCounter = CalParams%ParticleFileCounter + 1
                 call GetStepExt(CalParams%ParticleFileCounter, XXXCounter)
                 do I = 1, CalParams%OutputNumberParticles

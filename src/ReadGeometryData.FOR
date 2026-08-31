@@ -171,7 +171,7 @@
           
           FileVersion = CalParams%CPSversion
           
-          if (FileVersion == Anura3D_v2025) then
+          if ((FileVersion == Anura3D_v2025) .or. (FileVersion == Anura3D_v2026)) then
             write(Stage,'(I0)') CalParams%StageNumber
             FileName = trim(CalParams%FileNames%ProjectName)//GOM_STAGE_FILE_EXTENSION//Stage
           else
@@ -198,6 +198,8 @@
           ! read GOM data              
           select case (FileVersion) ! read GOM data depending on file version
             
+            case (Anura3D_v2026)             
+              call ReadGOM(FileUnit,FileVersion)
             case (Anura3D_v2025)             
               call ReadGOM(FileUnit,FileVersion)
             case (Anura3D_v2024)             
@@ -218,7 +220,8 @@
                 // trim(Anura3D_v2022) // ', ' &
                 // trim(Anura3D_v2023) // ', ' &
                 // trim(Anura3D_v2024) // ', ' &
-                // trim(Anura3D_v2025)     // '.' )
+                // trim(Anura3D_v2025) // ', ' &
+                // trim(Anura3D_v2026)     // '.' )
 
           end select
             
@@ -335,6 +338,9 @@
 		            
           ! set GOM version number
             select case (FileVersion)
+            case (Anura3D_v2026)
+                call GiveMessage('Reading... ' // Anura3D_v2026)
+                CalParams%GOMversion = Anura3D_v2026
             case (Anura3D_v2025)
                 call GiveMessage('Reading... ' // Anura3D_v2025)
                 CalParams%GOMversion = Anura3D_v2025

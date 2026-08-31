@@ -556,7 +556,7 @@
           
           FileVersion = CalParams%CPSversion
           
-          if (FileVersion == Anura3D_v2025) then
+          if ((FileVersion == Anura3D_v2025) .or. (FileVersion == Anura3D_v2026)) then
             write(Stage,'(I0)') CalParams%StageNumber
             FileName = trim(CalParams%FileNames%ProjectName)//GOM_STAGE_FILE_EXTENSION//Stage
           else
@@ -604,6 +604,8 @@
             call ContactSurfaceNodes_2D(FileUnit)     
           else           
             select case (FileVersion) ! read GOM data depending on file version
+              case (Anura3D_v2026)              
+                call ContactSurfaceNodes_v2021(FileUnit)  
               case (Anura3D_v2025)              
                 call ContactSurfaceNodes_v2021(FileUnit)
               case (Anura3D_v2024)              

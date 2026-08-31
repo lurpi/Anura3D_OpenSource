@@ -11,7 +11,7 @@ proc Anura3D::WriteCalculationFile_GOM { filename stageNode project_path model_n
     
     set current_xml_root $root
     
-    GiD_WriteCalculationFile puts "### Anura3D_2025 ###"
+    GiD_WriteCalculationFile puts "### Anura3D_2026 ###"
     
     # DIMENSION
     GiD_WriteCalculationFile puts {$$DIMENSION}

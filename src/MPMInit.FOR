@@ -1017,7 +1017,7 @@
         
           FileVersion = CalParams%CPSversion
           
-          if (FileVersion == Anura3D_v2025) then
+          if ((FileVersion == Anura3D_v2025) .or. (FileVersion == Anura3D_v2026)) then
             write(Stage,'(I0)') CalParams%StageNumber
             FileName = trim(CalParams%FileNames%ProjectName)//GOM_STAGE_FILE_EXTENSION//Stage
           else              

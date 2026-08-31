@@ -222,12 +222,12 @@
           character(len=255) :: TName, BName
           character(len=3) :: Stage
           
-          ! OPD file only works with Anura3D_v2025
+          ! OPD file only works with Anura3D_v2025 and Anura3D_v2026
 
           FileVersion = CalParams%CPSversion
           FileUnit = TMP_UNIT
           
-          if (FileVersion == Anura3D_v2025) then
+          if ((FileVersion == Anura3D_v2025) .or. (FileVersion == Anura3D_v2026)) then
             write(Stage,'(I0)') CalParams%StageNumber
             FileName = trim(CalParams%FileNames%ProjectName)//OPD_STAGE_FILE_EXTENSION//Stage
           else              

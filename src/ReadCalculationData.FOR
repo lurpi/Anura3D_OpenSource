@@ -986,7 +986,8 @@
           
           ! read CPS data
           select case (FileVersion) ! read CPS data depending on file version
-            
+            case (Anura3D_v2026)
+              call ReadCPS(FileUnit,FileVersion)
             case (Anura3D_v2025)
               call ReadCPS(FileUnit,FileVersion)
             case (Anura3D_v2024)
@@ -1008,7 +1009,8 @@
                 // trim(Anura3D_v2022) // ', ' &
                 // trim(Anura3D_v2023) // ', ' &
                 // trim(Anura3D_v2024) // ', ' &
-                // trim(Anura3D_v2025)     // '.' )
+                // trim(Anura3D_v2025) // ', ' &
+                // trim(Anura3D_v2026)     // '.' )
               
           end select
 
@@ -1045,6 +1047,9 @@
 
           ! set CPS version number
             select case (FileVersion)
+            case (Anura3D_v2026) 
+                call GiveMessage('Reading... ' // Anura3D_v2026)
+                CalParams%CPSversion = Anura3D_v2026
             case (Anura3D_v2025) 
                 call GiveMessage('Reading... ' // Anura3D_v2025)
                 CalParams%CPSversion = Anura3D_v2025
@@ -2901,7 +2906,9 @@ subroutine ReadPrescribedAccelerationOrVelocityFromFile()
 
           ! write CPS data depending on file version
           select case (FileVersion)
-        
+          
+          case(Anura3D_v2026)  
+            call WriteCPS(FileUnit,FileVersion)
           case(Anura3D_v2025)  
             call WriteCPS(FileUnit,FileVersion)
           case(Anura3D_v2024)  
@@ -2941,6 +2948,10 @@ subroutine ReadPrescribedAccelerationOrVelocityFromFile()
           integer(INTEGER_TYPE) :: I
           
           select case (FileVersion)
+              case(Anura3D_v2026)  
+                  write(FileUnit, '(A)') Anura3D_v2026
+                  ! STAGE OF CALCULATION    
+                  call WriteInteger(FileUnit, '$$STAGE', [CalParams%StageNumber], 1, .true.)
               case(Anura3D_v2025)  
                   write(FileUnit, '(A)') Anura3D_v2025
                   ! STAGE OF CALCULATION    
