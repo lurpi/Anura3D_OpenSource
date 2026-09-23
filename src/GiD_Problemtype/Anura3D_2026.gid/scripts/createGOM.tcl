@@ -50,7 +50,11 @@ proc Anura3D::WriteCalculationFile_GOM { filename stageNode project_path model_n
     
     # COUNTERS
     set num_nodes [GiD_Info Mesh NumNodes]
-    set num_elements [GiD_Info Mesh NumElements]
+    if {$dim_type == "2D:plane-strain" || $dim_type == "2D:Axissymmetric"} {
+        set num_elements [llength [GiD_Info Mesh Elements Triangle -sublist]]
+    } else {
+        set num_elements [llength [GiD_Info Mesh Elements Tetrahedra -sublist]]
+    }
     GiD_WriteCalculationFile puts {$$STARTCOUNTERS}
     GiD_WriteCalculationFile puts [= "%s %s" $num_elements $num_nodes]
 
