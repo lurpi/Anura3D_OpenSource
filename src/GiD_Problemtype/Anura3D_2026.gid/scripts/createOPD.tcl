@@ -267,7 +267,7 @@ proc Anura3D::WriteCalculationFile_OPD { stageNode projectPath projectName icoun
             dict set format $n "%d \n"
     }
         
-        if { [dict size $format] } {
+        if { [dict size $format] && $num_elem > 0 } {
             set err [catch {
                 GiD_WriteCalculationFile elements -return $format} numelems]       
             if { $err } {          
