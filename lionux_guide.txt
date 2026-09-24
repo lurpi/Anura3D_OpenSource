@@ -1,0 +1,5 @@
+Anura3D Linux Guide
+	====================
+
+	It would be cool to use opensource compilers and libraries...
+	
