@@ -1,0 +1,57 @@
+Anura3D Linux / CMake Build
+============================
+
+The original Visual Studio build is still available under:
+
+    src/VS/
+
+The CMake build is an additional Linux build system.
+
+Prerequisites
+-------------
+- Debian/Linux
+- CMake >= 3.20
+- Intel oneAPI Fortran (ifx)
+- Intel oneMKL
+- HDF5 with Fortran support
+- zlib
+- GiDPost
+
+HDF5, zlib and GiDPost are external dependencies.
+They are NOT built by this repository.
+
+Load Intel oneAPI
+-----------------
+source /opt/intel/oneapi/setvars.sh
+
+Configure Release build
+------------------------
+cmake -S . -B build \
+    -DCMAKE_Fortran_COMPILER=ifx \
+    -DCMAKE_BUILD_TYPE=Release
+
+Build
+-----
+cmake --build build -j$(nproc)
+
+Debug build
+-----------
+cmake -S . -B build-debug \
+    -DCMAKE_Fortran_COMPILER=ifx \
+    -DCMAKE_BUILD_TYPE=Debug
+
+cmake --build build-debug -j$(nproc)
+
+Non-standard dependency locations
+---------------------------------
+If HDF5, zlib or GiDPost are installed outside standard
+system paths, provide the appropriate CMake search path:
+
+cmake -S . -B build \
+    -DCMAKE_Fortran_COMPILER=ifx \
+    -DCMAKE_PREFIX_PATH=/path/to/dependencies
+
+Visual Studio
+-------------
+The existing Visual Studio solution/project remains available
+and has not been modified by the CMake conversion.

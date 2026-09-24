@@ -214,3 +214,18 @@ src/VS/Debug/WriteVTKOutput.obj
 src/VS/Debug/ReadMaterialData.obj
 src/GiD_Problemtype/Anura3D_2025.gid/doc/TutorialManual_2022.pdf
 src/GiD_Problemtype/Anura3D_2025.gid/doc/TutorialManual_2023.pdf
+
+# ---------------------------------------------------------------------------
+# Linux / CMake build
+# ---------------------------------------------------------------------------
+
+/build/
+/build-debug/
+/CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+
+# Fortran compiler output
+*.mod
+*.o
