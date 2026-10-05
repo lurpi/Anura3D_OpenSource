@@ -158,6 +158,7 @@ target_include_directories(Anura3D PRIVATE
 target_link_libraries(Anura3D PRIVATE
     ${HDF5_Fortran_LIBRARIES}
     ${HDF5_HL_LIBRARIES}
+    ${HDF5_LIBS}  
     ZLIB::ZLIB
     ${GIDPOST_LIBRARY}
 )
