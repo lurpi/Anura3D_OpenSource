@@ -55,3 +55,10 @@ Visual Studio
 -------------
 The existing Visual Studio solution/project remains available
 and has not been modified by the CMake conversion.
+
+
+-..-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-
+
+Success by installing oneAPI, then using the fortran compiler to compile hdf5, zlib, gidpost (at least in serial up to now) ... then a number of modifications to be sure that the hdf5 library are found/called, also adding path to hdf5 to LD_LIBRARY_PATH and LIBRARY_PATH, otherwise rather smooth.
+
+Another rather serious issue was DSS from MKL, because now all of the old DSS symbols (dss_create, dss_define_structure, …) are  contained in the single runtime library libmkl_rt.so (the “MKL runtime” library). This helped: cmake -DCMAKE_EXE_LINKER_FLAGS="-lmkl_intel_lp64 -lmkl_sequential -lmkl_core"
