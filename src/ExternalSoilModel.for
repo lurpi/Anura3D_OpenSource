@@ -43,7 +43,7 @@ use ModGlobalConstants
 use ModReadCalculationData
 use ModReadMaterialData
 use ModMPMInit
-use user32
+!use user32
 !use kernel32
 use ModMeshInfo
 use ModLinearElasticity
