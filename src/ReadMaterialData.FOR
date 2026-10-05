@@ -877,11 +877,11 @@ end select
                   !if (MatParams(I)%SoilModelName=="MyModel2")  MatParams(I)%ESM_POINTER => ESM_Mymodel2  !Example of the pointer definition
                   else  
                   MatParams(I)%SoilModelDLL = DumS
-                  lib_handle = loadlibrary(trim(DumS)//char(0))
+!                  lib_handle = loadlibrary(trim(DumS)//char(0))
                   if (lib_handle == 0) call Error_NoDLL(DumS) ! error handling
                   
                   ! initialise UMAT  This is just for a check to see if no error
-                    p = GetProcAddress(lib_handle, "ESM"C) ! TODO: Check to see if multiple materials works ?
+!                    p = GetProcAddress(lib_handle, "ESM"C) ! TODO: Check to see if multiple materials works ?
                     if (p == 0) call Error_NoUMAT(DumS) ! error handling
                   
                   MatParams(I)%SoilModelDLLHandle = lib_handle
