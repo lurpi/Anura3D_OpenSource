@@ -95,6 +95,16 @@ set(ANURA3D_SOURCES
 
 add_executable(Anura3D ${ANURA3D_SOURCES})
 
+# --------------------------------------------------------------
+# Find the HDF5 installation – we need both the low‑level C API
+# (libhdf5) and the high‑level “lite” API (libhdf5_hl).
+# --------------------------------------------------------------
+find_package(HDF5 COMPONENTS C HL REQUIRED)
+
+# Export the import libraries as a convenient variable.
+# HDF5::HDF5 is the imported target that ships with newer CMake
+# (it already includes both C and HL if you requested HL).
+set(HDF5_LIBS ${HDF5_C_LIBRARIES} ${HDF5_HL_LIBRARIES})
 # ---------------------------------------------------------------------------
 # Intel oneAPI / MKL
 # ---------------------------------------------------------------------------
