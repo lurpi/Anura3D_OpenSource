@@ -132,6 +132,7 @@ endif()
 #
 
 find_package(HDF5 REQUIRED COMPONENTS Fortran HL)
+
 find_package(ZLIB REQUIRED)
 
 find_library(
@@ -146,6 +147,7 @@ target_include_directories(Anura3D PRIVATE
 
 target_link_libraries(Anura3D PRIVATE
     ${HDF5_Fortran_LIBRARIES}
+    ${HDF5_HL_LIBRARIES}
     ZLIB::ZLIB
     ${GIDPOST_LIBRARY}
 )
